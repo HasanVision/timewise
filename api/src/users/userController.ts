@@ -1,6 +1,8 @@
 import { RequestHandler } from 'express';
 import { db } from '../../../lib/database.js';
 import bcrypt from 'bcryptjs';
+import { generateVerificationToken } from '../../../lib/data/generateVerificationToken.js';
+import { sendVerificationEmail } from '../../../lib/mail.js';
 
 const register: RequestHandler = async (req, res, next) => {
     const { firstName, lastName, email, password } = req.body;
@@ -44,6 +46,14 @@ const register: RequestHandler = async (req, res, next) => {
         });
 
         console.log('User created in the database:', newUser);
+        
+        const verificationToken = await generateVerificationToken(email);
+        await sendVerificationEmail(
+            verificationToken.email,
+            verificationToken.token
+        )
+
+
         res.status(201).json({ message: 'User created successfully', user: newUser });
     } catch (error) {
         console.error('Error creating user:', error);
