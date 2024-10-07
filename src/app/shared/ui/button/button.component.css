@@ -1,0 +1,84 @@
+/* Basic button styles */
+button {
+  padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s;
+}
+
+/* Variants */
+button.primary {
+  background-color: #007bff;
+  color: white;
+}
+
+button.secondary {
+  background-color: #354c60;
+  color: white;
+}
+
+button.danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* Sizes */
+button.small {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+}
+
+button.medium {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+}
+
+button.large {
+  padding: 0.75rem 1.5rem;
+  font-size: 1.25rem;
+}
+
+/* Full-width button */
+button.full-width {
+  width: 100%;
+}
+
+/* Icon styles */
+button i.material-icons {
+  margin-right: 0.5rem;
+}
+
+button i.material-icons.right {
+  margin-right: 0;
+  margin-left: 0.5rem;
+}
+
+/* Disabled state */
+button:disabled {
+  background-color: #e0e0e0;
+  color: #6c757d;
+  cursor: not-allowed;
+}
+
+.ghost-button {
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.ghost-button:hover {
+  color: #0056b3;
+}

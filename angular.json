@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "timewise2": {
+    "timewise": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/timewise2",
+            "outputPath": "dist/timewise",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -59,10 +59,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "timewise2:build:production"
+              "buildTarget": "timewise:build:production"
             },
             "development": {
-              "buildTarget": "timewise2:build:development"
+              "buildTarget": "timewise:build:development"
             }
           },
           "defaultConfiguration": "development"

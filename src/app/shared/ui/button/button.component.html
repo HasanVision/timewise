@@ -1,0 +1,19 @@
+<button
+  [type]="type"
+  [disabled]="disabled"
+  [ngClass]="[
+    variant,
+    size,
+    fullWidth ? 'full-width' : ''
+  ]"
+>
+  <ng-container *ngIf="icon && iconPosition === 'left'">
+    <i class="material-icons">{{ icon }}</i>
+  </ng-container>
+  
+  {{ label }}
+  
+  <ng-container *ngIf="icon && iconPosition === 'right'">
+    <i class="material-icons">{{ icon }}</i>
+  </ng-container>
+</button>

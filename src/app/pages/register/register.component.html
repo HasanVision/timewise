@@ -1,0 +1,78 @@
+<div class="login">
+    <div class="login__container">
+      <div class="login__container--header">
+        <h1 class="login__container--header--title">Register</h1>
+      </div>
+      <div class="login__container--form">
+        <form [formGroup]="form" (submit)="onSubmit()">
+          <app-input-text
+            class="input-field"
+            type="text"
+            formControlName="firstname"
+            [control]="form.get('firstname')"
+            placeholder="First name"
+            id="firstname">
+          </app-input-text>
+  
+          <app-input-text
+            class="input-field"
+            type="text"
+            formControlName="lastname"
+            [control]="form.get('lastname')"
+            placeholder="Last name"
+            id="lastname">
+          </app-input-text>
+  
+          <app-input-text
+            class="input-field"
+            type="email"
+            formControlName="email"
+            [control]="form.get('email')"
+            placeholder="Email"
+            id="email">
+          </app-input-text>
+  
+          <div class="input-field">
+            <app-input-text
+                class="input-field"
+              [type]="isPasswordVisible ? 'text' : 'password'"
+              formControlName="password"
+              [control]="form.get('password')"
+              placeholder="Password"
+              iconPosition="right">
+              <button type="button" icon-right class="toggle-password" (click)="togglePasswordVisibility()">
+                <fa-icon [icon]="isPasswordVisible ? 'eye-slash' : 'eye'"></fa-icon>
+              </button>
+            </app-input-text>
+          </div>
+  
+          <div>
+            <app-input-text
+              class="input-field"
+              [type]="isConfirmPasswordVisible ? 'text' : 'password'"
+              formControlName="confirmPassword"
+              [control]="form.get('confirmPassword')"
+              placeholder="Confirm password">
+              <button type="button" icon-right class="toggle-password" (click)="toggleConfirmPasswordVisibility()">
+                <fa-icon [icon]="isConfirmPasswordVisible ? 'eye-slash' : 'eye'"></fa-icon>
+              </button>
+            </app-input-text>
+          </div>
+  
+          <app-error [control]="form"></app-error>
+  
+          <app-button [fullWidth]="true" label="Register" type="submit" class="login__container--form--submit" [disabled]="form.invalid"></app-button>
+        </form>
+        <div >
+            <p *ngIf="isRegisterPage">
+              Already have an account?
+              <a routerLink="/login">Login here</a>
+            </p>
+            <p *ngIf="!isRegisterPage">
+              Don't have an account? 
+                <a routerLink="/register">Register here</a>
+            </p>
+          </div>
+      </div>
+    </div>
+  </div>

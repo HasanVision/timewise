@@ -1,0 +1,16 @@
+<div class="input-text">
+    <label *ngIf="label" [for]="id">{{ label }}</label>
+    <input
+      [type]="type"
+      [id]="id"
+      [name]="name"
+      [placeholder]="placeholder"
+      [ngClass]="{'input-error': showError}"
+      [disabled]="disabled"
+      [value]="value"
+      (input)="onInputChange($event)"
+      (blur)="onTouched()"
+    />
+    <app-error [control]="control"></app-error>
+    <ng-content select="[icon-right]"></ng-content>
+  </div>

@@ -1,0 +1,65 @@
+/* Wrapper for input and icons */
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* Full width if specified */
+.full-width {
+  width: 100%;
+}
+
+/* Input field */
+input {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+
+/* Icons inside input */
+[icon-left], [icon-right] {
+  position: absolute;
+  font-size: 1.25rem;
+  color: #777;
+  cursor: pointer;
+}
+
+/* Left icon */
+[icon-left] {
+  left: 0.75rem;
+}
+
+/* Right icon */
+[icon-right] {
+  right: 0.75rem;
+}
+
+/* Input focus styles */
+input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.input-error {
+  border-color: #ff4d4f;
+}
+  input.input-error {
+    border-color: red;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+  }
+
+  .input-text input.input-error {
+    border: 2px solid red;
+    background-color: #ffe6e6;
+  }
