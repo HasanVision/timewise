@@ -52,7 +52,46 @@ const register: RequestHandler = async (req, res, next) => {
 };
 
 const login: RequestHandler = async (req, res, next) => {
-    res.json({ message: 'Login' });
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+        console.log('Please enter all fields');
+        res.status(400).json({ message: 'Please enter all fields' });
+        return;
+    }
+
+    try {
+        console.log('Checking for existing user...');
+        const existingUser = await db.user.findUnique({ where: { email } });
+
+        if (!existingUser) {
+            res.status(400).json({ message: 'User does not exist' });
+            return;
+        }
+
+        // Ensure existingUser.password is a string before comparing
+        if (!existingUser.password) {
+            res.status(400).json({ message: 'Invalid credentials' });
+            return;
+        }
+
+        // Compare the password
+        const isPasswordValid = await bcrypt.compare(password, existingUser.password);
+
+        if (!isPasswordValid) {
+            res.status(400).json({ message: 'Invalid credentials' });
+            return;
+        }
+
+        // Rename the password field to avoid shadowing
+        const { password: _, ...userWithoutPassword } = existingUser;
+
+        console.log('User logged in:', userWithoutPassword);
+        res.json({ message: 'User logged in successfully', user: userWithoutPassword });
+    } catch (error) {
+        console.error('Error logging in:', error);
+        res.status(500).json({ message: 'An error occurred while logging in. Please try again later.' });
+    }
 };
 
 const currentUser: RequestHandler = async (req, res, next) => {
