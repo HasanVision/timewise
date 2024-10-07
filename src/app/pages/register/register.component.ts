@@ -60,7 +60,7 @@ export class RegisterComponent {
             console.log('Registration successful:', response.data);
         } catch (error) {
             if (axios.isAxiosError(error)) {
-                console.error('Registration failed:', error.response?.data); // Log detailed error response
+                console.error('Registration failed:', error.response?.data); 
                 this.registerError = error.response?.data?.message || 'Registration failed. Please try again.';
             } else {
                 console.error('An unexpected error occurred:', error);
