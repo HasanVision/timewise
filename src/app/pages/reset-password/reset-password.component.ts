@@ -10,11 +10,20 @@ import { ButtonComponent } from '../../shared/ui/button/button.component';
 import { InputTextComponent } from '../../shared/ui/input-text/input-text.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { CardComponent } from '../../shared/ui/card/card.component';
 
 @Component({
   selector: 'app-reset-password',
   standalone: true,
-  imports: [ReactiveFormsModule, SpinnerComponent, RouterModule, CommonModule, ErrorComponent, ButtonComponent, InputTextComponent],
+  imports: [ReactiveFormsModule, 
+    SpinnerComponent, 
+    RouterModule, 
+    CommonModule, 
+    ErrorComponent, 
+    ButtonComponent, 
+    InputTextComponent, 
+    FontAwesomeModule, 
+    CardComponent],
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.css']
 })

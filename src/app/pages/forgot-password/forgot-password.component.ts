@@ -6,11 +6,12 @@ import { ErrorComponent } from '../../shared/ui/error/error.component';
 import { CommonModule } from '@angular/common';
 import axios from 'axios';
 import { SpinnerComponent } from '../../shared/ui/spinner/spinner.component';
+import { CardComponent } from '../../shared/ui/card/card.component';
 
 @Component({
   selector: 'app-forgot-password',
   standalone: true,
-  imports: [  ReactiveFormsModule, ButtonComponent, InputTextComponent, CommonModule, ErrorComponent, SpinnerComponent ],
+  imports: [  ReactiveFormsModule, ButtonComponent, InputTextComponent, CommonModule, ErrorComponent, SpinnerComponent, CardComponent ],
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.css']
 })
