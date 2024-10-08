@@ -27,7 +27,7 @@ import { SpinnerComponent } from '../../shared/ui/spinner/spinner.component';
     
   ],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'], // Use `styleUrls` (plural)
+  styleUrls: ['./login.component.css'], 
 })
 export class LoginComponent {
   form: FormGroup;
@@ -50,35 +50,38 @@ export class LoginComponent {
     });
   }
 
-  // Mark `onSubmit` as `async` to use `await`
   async onSubmit() {
     if (this.form.valid) {
       this.isLoading = true;  
-        const { email, password } = this.form.value;
-        try {
-            console.log('Logging in user:', email, password);
-            const response = await axios.post('http://localhost:4000/api/login', {
-                email,
-                password,
-            });
-            // console.log('Login successful:', response.data);
-            this.isSuccessful = true;
-
-            // Store user data in localStorage or token if using JWT
-            localStorage.setItem('user', JSON.stringify(response.data.user));
-
-            this.loginError = null; // Clear any previous errors
-            
-            // Redirect to a different route, e.g., dashboard
-            this.router.navigate(['/dashboard']);
-        } catch (error) {
-            console.error('Error logging in:', error);
-            this.loginError = 'Invalid email or password. Please try again.';
-        } finally {
-            this.isLoading = false
+      const { email, password } = this.form.value;
+      try {
+        console.log('Logging in user:', email, password);
+        const response = await axios.post('http://localhost:4000/api/login', {
+          email,
+          password,
+        });
+        this.isSuccessful = true;
+    
+        // Store user data in localStorage
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+    
+        this.loginError = null;
+    
+        // Navigate to the dashboard
+        this.router.navigate(['/dashboard']);
+      } catch (error: unknown) {
+        // Handle Axios-specific errors
+        if (axios.isAxiosError(error)) {
+          this.loginError = error.response?.data.message || 'Invalid email or password. Please try again.';
+        } else {
+          // Handle generic errors
+          this.loginError = 'An unexpected error occurred during login. Please try again.';
         }
+      } finally {
+        this.isLoading = false;
+      }
     }
-}
+  }
 
   togglePasswordVisibility() {
     this.isPasswordVisible = !this.isPasswordVisible;

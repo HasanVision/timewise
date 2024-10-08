@@ -39,8 +39,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// Register routes
-
 
 // Simple route
 app.get('/', (req: Request, res: Response) => {

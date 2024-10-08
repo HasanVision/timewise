@@ -15,11 +15,11 @@ import {db} from "../database.js";
 
 
 
-export const getVerificationTokenByEmail = async (
+export const getResetVerificationTokenByEmail = async (
     email: string
 ) => {
     try {
-        return await db.verificationToken.findFirst({
+        return await db.resetPasswordToken.findFirst({
             where: {email}
         });
     } catch {

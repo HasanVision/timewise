@@ -21,6 +21,22 @@ export const sendVerificationEmail = async (
     })
 }
 
+export const sendResetPasswordEmail = async (
+    email: string,
+    token: string,
+) => {
+    const resetLink = `${domain}/new-password?token=${token}`;
+
+    await resend.emails.send({
+        from: "reset-password@oxygen365.net",
+        to: email,
+        subject: "Reset your password",
+        html: `<p>Click <a href="${resetLink}"> here </a> to reset your password!</p>`,
+
+    })
+}
+
+// TODO: Email Verification: reset password and email verification are similar processes. Consider reusing the email verification logic for the reset password process.
 // TODO: User Feedback: Improve the user interface to provide clear feedback during the verification process (e.g., loading spinners, success, and error messages).
 // TODO: 	Email Verification Link: Update the verification email to include a meaningful link to guide users.
 // TODO: Security Enhancements: Add security measures, such as token encryption or expiration checks, to ensure the verification process is secure.

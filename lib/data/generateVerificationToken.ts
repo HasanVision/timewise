@@ -2,12 +2,11 @@ import * as crypto from "crypto";
 import { getVerificationTokenByEmail } from "./getVerificationTokenByEmail.js";
 import { db } from "../database.js";
 
+const token = crypto.randomUUID();
+const expires = new Date(new Date().getTime() + 3600 * 1000);
+
 export const generateVerificationToken = async (email: string) => {
   try {
-    // Generate a unique token and set expiration (1 hour from now)
-    const token = crypto.randomUUID();
-    const expires = new Date(new Date().getTime() + 3600 * 1000);
-
     // Check if there is an existing token for this email
     const existingToken = await getVerificationTokenByEmail(email);
 
@@ -18,7 +17,7 @@ export const generateVerificationToken = async (email: string) => {
           id: existingToken.id,
         },
       });
-      console.log(`Existing verification token for ${email} deleted.`);
+      // console.log(`Existing verification token for ${email} deleted.`);
     }
 
     // Create and store the new verification token in the database
@@ -30,7 +29,7 @@ export const generateVerificationToken = async (email: string) => {
       },
     });
 
-    console.log(`New verification token generated for ${email}: ${token}`);
+    // console.log(`New verification token generated for ${email}: ${token}`);
     return newToken;
   } catch (error) {
     console.error('Error generating verification token:', error);

@@ -20,11 +20,14 @@
               placeholder="Password"
               iconPosition="right"
             >
-              <!-- Project the icon into the input component -->
+            
               <button type="button" icon-right class="toggle-password" (click)="togglePasswordVisibility()">
                 <fa-icon [icon]="isPasswordVisible ? 'eye-slash' : 'eye'"></fa-icon>
               </button>
             </app-input-text>
+          </div>
+          <div class="login__container--form--forgot-password">
+            <a routerLink="/forgot-password">Forgot password?</a>
           </div>
           <div>
             <app-spinner *ngIf="isLoading"></app-spinner>

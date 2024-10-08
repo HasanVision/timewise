@@ -8,11 +8,11 @@ const verifyToken: RequestHandler = async (req, res) => {
 
   if (!token) {
     res.status(400).json({ message: 'Token is required' });
-    return; // Stop further execution
+    return; 
   }
 
   try {
-    // Check if the token exists and is not expired
+ 
     const verificationToken = await db.verificationToken.findUnique({
       where: { token },
     });
@@ -21,16 +21,16 @@ const verifyToken: RequestHandler = async (req, res) => {
 
     if (!verificationToken || verificationToken.expires < new Date()) {
       res.status(400).json({ message: 'Invalid or expired token' });
-      return; // Stop further execution
+      return; 
     }
 
-    // Update the user's emailVerified status
+
     await db.user.update({
       where: { email: verificationToken.email },
       data: { emailVerified: new Date() },
     });
 
-    // Delete the used token
+  
     await db.verificationToken.delete({ where: { token } });
 
     console.log('User verified successfully.');
