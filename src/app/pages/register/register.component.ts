@@ -9,13 +9,23 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import axios from 'axios';
+import { SpinnerComponent } from '../../shared/ui/spinner/spinner.component';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, ButtonComponent, InputTextComponent, ErrorComponent, FontAwesomeModule, CommonModule, RouterModule],
+  imports: [
+    ReactiveFormsModule,
+    ButtonComponent,
+    InputTextComponent,
+    ErrorComponent,
+    FontAwesomeModule,
+    CommonModule,
+    RouterModule,
+    SpinnerComponent,
+  ],
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent {
   form: FormGroup;
@@ -23,19 +33,27 @@ export class RegisterComponent {
   isConfirmPasswordVisible: boolean = false;
   isRegisterPage: boolean = true;
   registerError: string | null = null;
+  isLoading: boolean = false;
+  successMessage: string = '';
 
   constructor(private fb: FormBuilder, private library: FaIconLibrary) {
     this.library.addIcons(faEye, faEyeSlash);
 
-    this.form = this.fb.group({
-      firstname: new FormControl('', [Validators.required]),
-      lastname: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]),
-      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-      confirmPassword: new FormControl('', [Validators.required, Validators.minLength(6)])
-    }, {
-      validators: this.passwordsMatchValidator // Attach the custom validator
-    });
+    this.form = this.fb.group(
+      {
+        firstname: new FormControl('', [Validators.required]),
+        lastname: new FormControl('', [Validators.required]),
+        email: new FormControl('', [
+          Validators.required,
+          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+        ]),
+        password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+        confirmPassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      },
+      {
+        validators: this.passwordsMatchValidator, // Attach the custom validator
+      }
+    );
   }
 
   // Define the custom validator as a method
@@ -47,30 +65,39 @@ export class RegisterComponent {
 
   async onSubmit() {
     if (this.form.valid) {
-        const { firstname, lastname, email, password } = this.form.value;
+      this.isLoading = true;
+      const { firstname, lastname, email, password } = this.form.value;
 
-        try {
-            console.log('Registering user:', firstname, lastname, email, password);
-            const response = await axios.post('http://localhost:4000/api/register', {
-                firstName: firstname,
-                lastName: lastname,
-                email,
-                password
-            });
-            console.log('Registration successful:', response.data);
-        } catch (error) {
-            if (axios.isAxiosError(error)) {
-                console.error('Registration failed:', error.response?.data); 
-                this.registerError = error.response?.data?.message || 'Registration failed. Please try again.';
-            } else {
-                console.error('An unexpected error occurred:', error);
-            }
+      try {
+        console.log('Registering user:', firstname, lastname, email, password);
+        const response = await axios.post('http://localhost:4000/api/register', {
+          firstName: firstname,
+          lastName: lastname,
+          email,
+          password,
+        });
+        // Set success message
+        this.successMessage =
+          'Email verification link has been sent to your email address. Please verify your email to login.';
+        this.registerError = null; // Clear any previous errors
+        
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          console.error('Registration failed:', error.response?.data);
+          this.registerError = error.response?.data?.message || 'Registration failed. Please try again.';
+        } else {
+          this.registerError = 'An unexpected error occurred during registration.';
         }
+      } finally {
+        this.isLoading = false; 
+      }
     }
-}
+  }
+
   togglePasswordVisibility() {
     this.isPasswordVisible = !this.isPasswordVisible;
   }
+
   toggleConfirmPasswordVisibility() {
     this.isConfirmPasswordVisible = !this.isConfirmPasswordVisible;
   }

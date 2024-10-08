@@ -49,8 +49,7 @@ export class VerifyEmailComponent implements OnInit {
       this.message = 'No token provided for verification.';
       setTimeout(() => {
        this.isLoaded = false;
-      }
-      , 2000);
+      }, 2000);
     }
   }
 }

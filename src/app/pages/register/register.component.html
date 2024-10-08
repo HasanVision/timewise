@@ -3,6 +3,7 @@
       <div class="login__container--header">
         <h1 class="login__container--header--title">Register</h1>
       </div>
+     
       <div class="login__container--form">
         <form [formGroup]="form" (submit)="onSubmit()">
           <app-input-text
@@ -60,6 +61,11 @@
           </div>
   
           <app-error [control]="form"></app-error>
+          <div>
+            <app-spinner *ngIf="isLoading"></app-spinner>
+            <p *ngIf="successMessage" class="success-message">{{ successMessage}}</p>
+            <p *ngIf="registerError" class="error-message">{{ registerError}} </p>
+          </div>
   
           <app-button [fullWidth]="true" label="Register" type="submit" class="login__container--form--submit" [disabled]="form.invalid"></app-button>
         </form>

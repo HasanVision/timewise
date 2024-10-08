@@ -92,3 +92,38 @@ input:focus {
 .input-field.invalid .app-error {
     visibility: visible;
 }
+
+/* Styles for the success message */
+.success-message {
+    color: #4caf50; /* Green color for success */
+    background-color: #e8f5e9; /* Light green background */
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 14px;
+    border: 1px solid #4caf50;
+  }
+  
+  /* Styles for the error message */
+  .error-message {
+    color: #f44336; /* Red color for error */
+    background-color: #ffebee; /* Light red background */
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 14px;
+    border: 1px solid #f44336;
+  }
+  
+  /* Optional: Spinner alignment */
+  app-spinner {
+    display: block;
+    margin: 10px auto;
+  }
+  
+  /* General container adjustments */
+  .login__container--form > div {
+    margin-top: 20px; /* Adds spacing between form fields and messages */
+  }
