@@ -14,7 +14,7 @@ const register: RequestHandler = async (req, res, next) => {
     }
 
     try {
-        console.log('Checking for existing user...');
+        // console.log('Checking for existing user...');
         const existingUser = await db.user.findUnique({ where: { email } });
 
         if (existingUser) {
@@ -70,7 +70,7 @@ const login: RequestHandler = async (req, res, next) => {
     }
 
     try {
-        console.log('Checking for existing user...');
+        // console.log('Checking for existing user...');
         const existingUser = await db.user.findUnique({ where: { email } });
 
         if (!existingUser) {

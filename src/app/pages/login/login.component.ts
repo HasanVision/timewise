@@ -9,6 +9,7 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { CommonModule } from '@angular/common';
 import { RouterModule , Router} from '@angular/router';
 import axios from 'axios';
+import { SpinnerComponent } from '../../shared/ui/spinner/spinner.component';
 
 
 @Component({
@@ -22,6 +23,8 @@ import axios from 'axios';
     FontAwesomeModule,
     CommonModule,
     RouterModule,
+    SpinnerComponent,
+    
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'], // Use `styleUrls` (plural)
@@ -31,6 +34,9 @@ export class LoginComponent {
   isPasswordVisible: boolean = false;
   isRegisterPage: boolean = false;
   loginError: string | null = null;
+  isLoading: boolean = false;
+  isSuccessful: boolean = false;
+
 
   constructor(private fb: FormBuilder, private library: FaIconLibrary, private router: Router) {
     this.library.addIcons(faEye, faEyeSlash);
@@ -47,6 +53,7 @@ export class LoginComponent {
   // Mark `onSubmit` as `async` to use `await`
   async onSubmit() {
     if (this.form.valid) {
+      this.isLoading = true;  
         const { email, password } = this.form.value;
         try {
             console.log('Logging in user:', email, password);
@@ -54,12 +61,11 @@ export class LoginComponent {
                 email,
                 password,
             });
-            console.log('Login successful:', response.data);
+            // console.log('Login successful:', response.data);
+            this.isSuccessful = true;
 
             // Store user data in localStorage or token if using JWT
             localStorage.setItem('user', JSON.stringify(response.data.user));
-            // Or if your backend provides a token:
-            // localStorage.setItem('token', response.data.token);
 
             this.loginError = null; // Clear any previous errors
             
@@ -68,6 +74,8 @@ export class LoginComponent {
         } catch (error) {
             console.error('Error logging in:', error);
             this.loginError = 'Invalid email or password. Please try again.';
+        } finally {
+            this.isLoading = false
         }
     }
 }
