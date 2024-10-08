@@ -33,8 +33,12 @@ export class ResetPasswordComponent implements OnInit {
   isLoading: boolean = false;
   successMessage: string = '';
   errorMessage: string = '';
+  isPasswordVisible: boolean = false;
+  isConfirmPasswordVisible: boolean = false;
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router) {
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private library: FaIconLibrary) {
+    this.library.addIcons(faEye, faEyeSlash);
+
     this.form = this.fb.group({
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
       confirmPassword: new FormControl('', [Validators.required, Validators.minLength(6)])
@@ -84,5 +88,12 @@ export class ResetPasswordComponent implements OnInit {
         this.isLoading = false;
       }
     }
+  }
+  togglePasswordVisibility() {
+    this.isPasswordVisible = !this.isPasswordVisible;
+  }
+
+  toggleConfirmPasswordVisibility() {
+    this.isConfirmPasswordVisible = !this.isConfirmPasswordVisible;
   }
 }

@@ -8,6 +8,7 @@ import newPasswordHandler from './newPasswordHandler.js';
 
 
 
+
 const UserRoute = express.Router();
 
 UserRoute.post('/register', register);
