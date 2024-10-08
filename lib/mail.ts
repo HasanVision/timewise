@@ -20,3 +20,7 @@ export const sendVerificationEmail = async (
         html: `<p>Click <a href="${confirmLink}"> here </a> to confirm your email!</p>`,
     })
 }
+
+// TODO: User Feedback: Improve the user interface to provide clear feedback during the verification process (e.g., loading spinners, success, and error messages).
+// TODO: 	Email Verification Link: Update the verification email to include a meaningful link to guide users.
+// TODO: Security Enhancements: Add security measures, such as token encryption or expiration checks, to ensure the verification process is secure.

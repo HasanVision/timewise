@@ -1,5 +1,6 @@
 <div class="verify-email">
     <h2>Email Verification</h2>
+    <app-spinner *ngIf="isLoaded"></app-spinner>
     <p [ngClass]="{ 'success-message': isSuccess, 'error-message': !isSuccess }">{{ message }}</p>
     <button *ngIf="isSuccess" (click)="router.navigate(['/login'])">Go to Login</button>
   </div>
