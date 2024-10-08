@@ -31,7 +31,7 @@ const refreshTokenHandler: RequestHandler = (req, res) => {
     }
 
     // Generate a new access token
-    const accessToken = jwt.sign({ id, email }, JWT_SECRET, { expiresIn: '1m' });
+    const accessToken = jwt.sign({ id, email }, JWT_SECRET, { expiresIn: '15m' });
     return res.json({ accessToken });
   });
 };

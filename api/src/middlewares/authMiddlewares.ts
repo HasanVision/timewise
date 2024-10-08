@@ -8,17 +8,17 @@ const authenticateToken: RequestHandler = (req: Request, res: Response, next: Ne
 
   if (!token) {
     res.status(401).json({ message: 'No token provided' });
-    return; // Ensure you return to stop execution
+    return; 
   }
 
   jwt.verify(token, process.env["JWT_SECRET"]!, (err, user) => {
     if (err) {
       res.status(403).json({ message: 'Token is invalid or expired' });
-      return; // Ensure you return to stop execution
+      return; 
     }
 
     req.user = user; // Attach user info to request object
-    next(); // Proceed to the next middleware or route handler
+    next(); 
   });
 };
 
