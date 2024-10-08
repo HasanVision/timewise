@@ -11,7 +11,7 @@ export const sendVerificationEmail = async (
     token: string,
 
 ) => {
-    const confirmLink = `${domain}/`;
+    const confirmLink = `${domain}/verify-token?token=${token}`;
 
     await resend.emails.send({
         from: "confirm@oxygen365.net",

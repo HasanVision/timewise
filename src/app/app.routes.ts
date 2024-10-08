@@ -4,6 +4,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { AuthGuard } from '../app/guards/auth.guard';
+import { VerifyEmailComponent } from './verify-email/verify-email.component';
 
 
 export const routes: Routes = [
@@ -12,7 +13,8 @@ export const routes: Routes = [
             {path: '', redirectTo: 'login', pathMatch: 'full'},
             {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
             {path: 'login', component: LoginComponent},
-            {path: 'register', component: RegisterComponent}
+            {path: 'register', component: RegisterComponent},
+            {path: 'verify', component: VerifyEmailComponent}
         ]
     }
 ];

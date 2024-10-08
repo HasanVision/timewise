@@ -1,0 +1,12 @@
+.verify-email {
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .success-message {
+    color: green;
+  }
+  
+  .error-message {
+    color: red;
+  }

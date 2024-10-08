@@ -1,8 +1,8 @@
 import express, { Request, Response } from 'express';
 import { db } from './lib/database.js'; 
-import fs from 'fs';
 import UserRoute from './api/src/users/authRoute.js'; 
 import cors from 'cors';
+
 
 const app = express();
 const port = 4000;
@@ -15,6 +15,7 @@ app.use(cors({
 }))
 app.use(express.json());
 app.use('/api', UserRoute);
+
 
 // Middleware for logging request information
 app.use((req, res, next) => {
@@ -56,7 +57,7 @@ async function run() {
 
     app.listen(port, () => {
       console.log(`Node Express server listening on http://localhost:${port}`);
-      console.log('File exists:', fs.existsSync('./lib/database.ts'));
+      // console.log('File exists:', fs.existsSync('./lib/database.ts'));
     });
   } catch (error) {
     console.error('Failed to connect to the database:', error);

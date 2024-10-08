@@ -10,7 +10,6 @@ const register: RequestHandler = async (req, res, next) => {
     if (!firstName || !lastName || !email || !password) {
         console.log('Please enter all fields');
         res.status(400).json({ message: 'Please enter all fields' });
-
         return;
     }
 
@@ -46,7 +45,7 @@ const register: RequestHandler = async (req, res, next) => {
         });
 
         console.log('User created in the database:', newUser);
-        
+
         const verificationToken = await generateVerificationToken(email);
         await sendVerificationEmail(
             verificationToken.email,

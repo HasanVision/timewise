@@ -1,34 +1,45 @@
-import express, { Request, Response, RequestHandler } from 'express';
-import { generateVerificationToken } from '../../../lib/data/generateVerificationToken';
-import { sendVerificationEmail } from '../../../lib/mail';
+import { RequestHandler } from 'express';
+import { db } from '../../../lib/database.js'; // Adjust the path as necessary
 
-const router = express.Router();
+const verifyToken: RequestHandler = async (req, res) => {
+  const { token } = req.body;
 
-const sendVerification: RequestHandler = async (req: Request, res: Response) => {
-  const { email } = req.body;
+  console.log('Received token for verification:', token);
 
-  if (!email) {
-    res.status(400).json({ message: 'Email is required' });
-    return; // Exit the function to avoid further execution
+  if (!token) {
+    res.status(400).json({ message: 'Token is required' });
+    return; // Stop further execution
   }
 
   try {
-    // Generate a new verification token
-    const token = await generateVerificationToken(email);
+    // Check if the token exists and is not expired
+    const verificationToken = await db.verificationToken.findUnique({
+      where: { token },
+    });
 
-    // Send the verification email (implement this function using Resend or other email service)
-    // await sendVerificationEmail(email, token.token);
+    console.log('Token fetched from database:', verificationToken);
 
+    if (!verificationToken || verificationToken.expires < new Date()) {
+      res.status(400).json({ message: 'Invalid or expired token' });
+      return; // Stop further execution
+    }
 
+    // Update the user's emailVerified status
+    await db.user.update({
+      where: { email: verificationToken.email },
+      data: { emailVerified: new Date() },
+    });
 
-    res.status(200).json({ message: 'Verification email sent successfully.' });
+    // Delete the used token
+    await db.verificationToken.delete({ where: { token } });
+
+    console.log('User verified successfully.');
+
+    res.status(200).json({ message: 'Email verified successfully!' });
   } catch (error) {
-    console.error('Error sending verification email:', error);
-    res.status(500).json({ message: 'An error occurred while sending the verification email.' });
+    console.error('Error verifying token:', error);
+    res.status(500).json({ message: 'An error occurred during verification. Please try again later.' });
   }
 };
 
-// Register the route
-router.post('/send-verification', sendVerification);
-
-export default router;
+export default verifyToken;
