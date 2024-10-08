@@ -1,8 +1,10 @@
 import { RequestHandler } from 'express';
 import { db } from '../../../lib/database.js';
 import bcrypt from 'bcryptjs';
-import { generateVerificationToken } from '../../../lib/data/generateVerificationToken.js';
-import { sendVerificationEmail } from '../../../lib/mail.js';
+// import { generateVerificationToken } from '../../../lib/data/generateVerificationToken.js';
+import { generateMagicVerificationToken } from '../../../lib/data/generateMagicLinkToken.js';
+// import { sendVerificationEmail } from '../../../lib/mail.js';
+import { sendMagicLinkEmail } from '../../../lib/mail.js';
 
 const register: RequestHandler = async (req, res ) => {
     const { firstName, lastName, email, password } = req.body;
@@ -46,8 +48,8 @@ const register: RequestHandler = async (req, res ) => {
 
         console.log('User created in the database:', newUser);
 
-        const verificationToken = await generateVerificationToken(email);
-        await sendVerificationEmail(
+        const verificationToken = await generateMagicVerificationToken(email);
+        await sendMagicLinkEmail(
             verificationToken.email,
             verificationToken.token
         )

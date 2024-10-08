@@ -1,10 +1,10 @@
 import { RequestHandler } from 'express';
-import { db } from '../../../lib/database.js'; // Adjust the path as necessary
+import { db } from '../../../lib/database.js';
 
-const verifyToken: RequestHandler = async (req, res) => {
+const magicVerifyToken: RequestHandler = async (req, res) => {
   const { token } = req.body;
 
-  console.log('Received token for verification:', token);
+  console.log('Received magic token for verification:', token);
 
   if (!token) {
     res.status(400).json({ message: 'Token is required' });
@@ -13,11 +13,11 @@ const verifyToken: RequestHandler = async (req, res) => {
 
   try {
  
-    const verificationToken = await db.verificationToken.findUnique({
+    const verificationToken = await db.magicLinkToken.findUnique({
       where: { token },
     });
 
-    console.log('Token fetched from database:', verificationToken);
+    console.log('Token magic fetched from database:', verificationToken);
 
     if (!verificationToken || verificationToken.expires < new Date()) {
       res.status(400).json({ message: 'Invalid or expired token' });
@@ -31,7 +31,7 @@ const verifyToken: RequestHandler = async (req, res) => {
     });
 
   
-    await db.verificationToken.delete({ where: { token } });
+    await db.magicLinkToken.delete({ where: { token } });
 
     console.log('User verified successfully.');
 
@@ -42,4 +42,4 @@ const verifyToken: RequestHandler = async (req, res) => {
   }
 };
 
-export default verifyToken;
+export default magicVerifyToken;

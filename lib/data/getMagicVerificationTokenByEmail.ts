@@ -1,6 +1,6 @@
 import {db} from "../database.js";
 
-export const getVerificationTokenByToken = async (
+export const getMagicVerificationTokenByToken = async (
     token: string
 ) => {
     try {
@@ -15,11 +15,11 @@ export const getVerificationTokenByToken = async (
 
 
 
-export const getVerificationTokenByEmail = async (
+export const getMagicVerificationTokenByEmail = async (
     email: string
 ) => {
     try {
-        return await db.verificationToken.findFirst({
+        return await db.magicLinkToken.findFirst({
             where: {email}
         });
     } catch {

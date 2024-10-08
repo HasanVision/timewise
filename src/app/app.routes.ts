@@ -4,9 +4,9 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { AuthGuard } from '../app/guards/auth.guard';
-import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import { MagicLinkComponent } from './magic-link/magic-link.component';
 
 
 export const routes: Routes = [
@@ -16,9 +16,9 @@ export const routes: Routes = [
             {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
             {path: 'login', component: LoginComponent},
             {path: 'register', component: RegisterComponent},
-            {path: 'verify-token', component: VerifyEmailComponent},
             {path: 'forgot-password', component: ForgotPasswordComponent},
-            {path: 'new-password', component: ResetPasswordComponent}
+            {path: 'new-password', component: ResetPasswordComponent},
+            { path: 'magic-link', component: MagicLinkComponent },
         ]
     }
 ];
