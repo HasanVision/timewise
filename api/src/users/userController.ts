@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 import { generateVerificationToken } from '../../../lib/data/generateVerificationToken.js';
 import { sendVerificationEmail } from '../../../lib/mail.js';
 
-const register: RequestHandler = async (req, res, next) => {
+const register: RequestHandler = async (req, res ) => {
     const { firstName, lastName, email, password } = req.body;
 
     if (!firstName || !lastName || !email || !password) {
