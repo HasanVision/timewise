@@ -1,58 +1,59 @@
-<div class="login">
-    <div class="login__container">
-      <div class="login__container--header">
-        <h1 class="login__container--header--title">Login</h1>
-      </div>
-      <div class="login__container--form">
-        <form [formGroup]="form" (submit)="onSubmit()">
-          <app-input-text class="input-field"
-            type="email"
-            formControlName="email"
-            [control]="form.get('email')"
-            placeholder="Email"
-            id="email">
+<app-card title="Login" subtitle="">
+  <div class="login">
+    
+    <div class="login__container--form">
+      <form [formGroup]="form" (submit)="onSubmit()">
+        <app-input-text class="input-field"
+          type="email"
+          formControlName="email"
+          [control]="form.get('email')"
+          placeholder="Email"
+          id="email">
+        </app-input-text>
+        <div class="input-wrapper">
+          <app-input-text
+            [type]="isPasswordVisible ? 'text' : 'password'"
+            formControlName="password"
+            [control]="form.get('password')"
+            placeholder="Password"
+            iconPosition="right"
+          >
+          
+            <button type="button" icon-right class="toggle-password" (click)="togglePasswordVisibility()">
+              <fa-icon [icon]="isPasswordVisible ? 'eye-slash' : 'eye'"></fa-icon>
+            </button>
           </app-input-text>
-          <div class="input-wrapper">
-            <app-input-text
-              [type]="isPasswordVisible ? 'text' : 'password'"
-              formControlName="password"
-              [control]="form.get('password')"
-              placeholder="Password"
-              iconPosition="right"
-            >
+        </div>
+        <div class="login__container--form--forgot-password">
+          <a routerLink="/forgot-password">Forgot password?</a>
+        </div>
+        <div>
+          <app-spinner *ngIf="isLoading"></app-spinner>
+          <p *ngIf="loginError" class="error-message">{{ loginError}} </p>
+        </div>
+
+        <app-error [control]="form"></app-error>
+
+        <app-button [fullWidth]="true" label="Login" type="submit" class="login__container--form--submit" [disabled]="form.invalid"></app-button>
+      </form>
+      <div >
+          <p *ngIf="isRegisterPage">
+            Already have an account? 
+            <app-button>
+              <a routerLink="/login">Login here</a>
+            </app-button>
             
-              <button type="button" icon-right class="toggle-password" (click)="togglePasswordVisibility()">
-                <fa-icon [icon]="isPasswordVisible ? 'eye-slash' : 'eye'"></fa-icon>
-              </button>
-            </app-input-text>
-          </div>
-          <div class="login__container--form--forgot-password">
-            <a routerLink="/forgot-password">Forgot password?</a>
-          </div>
-          <div>
-            <app-spinner *ngIf="isLoading"></app-spinner>
-            <p *ngIf="loginError" class="error-message">{{ loginError}} </p>
-          </div>
-  
-          <app-error [control]="form"></app-error>
-  
-          <app-button [fullWidth]="true" label="Login" type="submit" class="login__container--form--submit" [disabled]="form.invalid"></app-button>
-        </form>
-        <div >
-            <p *ngIf="isRegisterPage">
-              Already have an account? 
-              <app-button>
-                <a routerLink="/login">Login here</a>
-              </app-button>
-              
-            </p>
-            <p *ngIf="!isRegisterPage">
-              Don't have an account? 
-              <a routerLink="/register">Register here</a>
-            </p>
-          </div>
-      </div>
+          </p>
+          <p *ngIf="!isRegisterPage">
+            Don't have an account? 
+            <a routerLink="/register">Register here</a>
+          </p>
+        </div>
+    
     </div>
   </div>
+</app-card>
+
+
 
   <!-- TODO: add remember me checkbox -->

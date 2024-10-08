@@ -29,13 +29,13 @@ app.use((req, res, next) => {
   });
 
   app.post('/test', (req, res) => {
-    console.log('Request Body:', req.body);
+    // console.log('Request Body:', req.body);
     res.json({ message: 'Received', body: req.body });
   });
 
-  console.log('Request Method:', req.method);
-  console.log('Request Headers:', req.headers);
-  console.log('Request Body:', req.body);
+  // console.log('Request Method:', req.method);
+  // console.log('Request Headers:', req.headers);
+  // console.log('Request Body:', req.body);
   next();
 });
 

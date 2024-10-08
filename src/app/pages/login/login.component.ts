@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule , Router} from '@angular/router';
 import axios from 'axios';
 import { SpinnerComponent } from '../../shared/ui/spinner/spinner.component';
+import { CardComponent } from "../../shared/ui/card/card.component";
 
 
 @Component({
@@ -24,8 +25,8 @@ import { SpinnerComponent } from '../../shared/ui/spinner/spinner.component';
     CommonModule,
     RouterModule,
     SpinnerComponent,
-    
-  ],
+    CardComponent
+],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'], 
 })
