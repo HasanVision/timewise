@@ -56,7 +56,7 @@ export class LoginComponent {
       this.isLoading = true;  
       const { email, password } = this.form.value;
       try {
-        console.log('Logging in user:', email, password);
+        // console.log('Logging in user:', email, password);
         const response = await axios.post('http://localhost:4000/api/login', {
           email,
           password,

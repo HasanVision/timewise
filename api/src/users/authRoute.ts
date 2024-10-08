@@ -1,4 +1,5 @@
-import { register, login, currentUser } from './userController.js';
+import { register, currentUser } from './registerController.js';
+import { login } from './loginController.js';
 import forgotPasswordHandler from './forgotPasswordController.js';
 
 

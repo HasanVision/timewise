@@ -53,7 +53,7 @@ export class RegisterComponent {
         confirmPassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
       },
       {
-        validators: this.passwordsMatchValidator, // Attach the custom validator
+        validators: this.passwordsMatchValidator, 
       }
     );
   }
