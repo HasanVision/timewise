@@ -87,4 +87,13 @@
   }
   
 
-
+  .login .resend-link {
+    color: #0275d8; /* Blue color for link */
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  
+  .login .resend-link:hover {
+    color: #014c8c;
+    text-decoration: none;
+  }

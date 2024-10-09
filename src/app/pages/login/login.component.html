@@ -30,7 +30,11 @@
         </div>
         <div>
           <app-spinner *ngIf="isLoading"></app-spinner>
-          <p *ngIf="loginError" class="error-message">{{ loginError}} </p>
+          
+<div *ngIf="loginError" class="error-message">{{ loginError }}</div>
+    <div *ngIf="loginError">
+      <p>If you didn’t receive the email, check your spam folder or click <span class="resend-link" (click)="resendEmail()">here</span> to resend.</p>
+    </div>
         </div>
 
         <app-error [control]="form"></app-error>
@@ -45,9 +49,9 @@
       <div >
           <p *ngIf="isRegisterPage">
             Already have an account? 
-            <app-button>
+           
               <a routerLink="/login">Login here</a>
-            </app-button>
+          
             
           </p>
           <p *ngIf="!isRegisterPage">

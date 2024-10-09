@@ -18,8 +18,13 @@ export const login: RequestHandler = async (req, res, next) => {
   try {
     const existingUser = await db.user.findUnique({ where: { email } });
     if (!existingUser) {
-       res.status(400).json({ message: 'User does not exist' });
+       res.status(400).json({ message: 'Invalid credentials' });
        return
+    }
+
+    if (!existingUser.emailVerified) {
+      res.status(403).json({ message: 'Please verify your email before logging in.' });
+      return;
     }
 
     const isPasswordValid = await bcrypt.compare(password, existingUser.password!);
@@ -27,6 +32,7 @@ export const login: RequestHandler = async (req, res, next) => {
        res.status(400).json({ message: 'Invalid credentials' });
        return
     }
+    
 
     // Generate JWT tokens
     const accessToken = jwt.sign({ id: existingUser.id, email: existingUser.email }, JWT_SECRET, {

@@ -91,4 +91,8 @@ export class LoginComponent {
   handleGoogleAuth() {
     window.location.href = 'http://localhost:4000/auth/google'; // Redirect to backend Google OAuth route
   }
+  resendEmail() {
+    axios.post ( 'http://localhost:4000/api/resend-verification'); 
+  }
+
 }
