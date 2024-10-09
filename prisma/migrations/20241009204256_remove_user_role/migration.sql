@@ -59,22 +59,9 @@ CREATE TABLE `User` (
     `emailVerified` DATETIME(3) NULL,
     `password` VARCHAR(191) NULL,
     `isTwoFactorEnabled` BOOLEAN NOT NULL DEFAULT false,
-    `role` ENUM('ADMIN', 'USER') NOT NULL DEFAULT 'USER',
     `image` VARCHAR(191) NULL,
 
     UNIQUE INDEX `User_email_key`(`email`),
-    PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
-CREATE TABLE `VerificationToken` (
-    `id` VARCHAR(191) NOT NULL,
-    `email` VARCHAR(191) NOT NULL,
-    `token` VARCHAR(191) NOT NULL,
-    `expires` DATETIME(3) NOT NULL,
-
-    UNIQUE INDEX `VerificationToken_token_key`(`token`),
-    UNIQUE INDEX `VerificationToken_email_token_key`(`email`, `token`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 

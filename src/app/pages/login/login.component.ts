@@ -92,7 +92,18 @@ export class LoginComponent {
     window.location.href = 'http://localhost:4000/auth/google'; // Redirect to backend Google OAuth route
   }
   resendEmail() {
-    axios.post ( 'http://localhost:4000/api/resend-verification'); 
+    const email = this.form.get('email')?.value; // Assuming the email is available from your form
+    if (email) {
+      axios.post('http://localhost:4000/api/resend-verification', { email })
+        .then(response => {
+          console.log('Verification email resent successfully', response);
+        })
+        .catch(error => {
+          console.error('Error resending verification email', error);
+        });
+    } else {
+      console.error('Email is missing, cannot resend verification email.');
+    }
   }
 
 }

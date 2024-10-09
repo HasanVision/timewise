@@ -40,7 +40,6 @@ const register: RequestHandler = async (req, res ) => {
                 lastname: true,
                 email: true,
                 isTwoFactorEnabled: true,
-                role: true,
                 image: true,
             },
         });
