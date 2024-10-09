@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction, RequestHandler } from 'express';
 import jwt from 'jsonwebtoken';
 
-// Middleware to verify access token
+
 const authenticateToken: RequestHandler = (req: Request, res: Response, next: NextFunction): void => {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
@@ -17,7 +17,7 @@ const authenticateToken: RequestHandler = (req: Request, res: Response, next: Ne
       return; 
     }
 
-    req.user = user; // Attach user info to request object
+    req.user = user; 
     next(); 
   });
 };

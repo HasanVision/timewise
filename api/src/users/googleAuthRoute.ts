@@ -1,7 +1,7 @@
 import express from 'express';
 import passport from 'passport';
 import jwt from 'jsonwebtoken';
-import { authenticateToken } from "../middlewares/authMiddlewares"; // Middleware for JWT verification
+import { authenticateToken } from "../middlewares/authMiddlewares"; 
 import { User } from '@prisma/client'; 
 
 const googleAuthRouter = express.Router();
