@@ -11,6 +11,7 @@ import { RouterModule , Router} from '@angular/router';
 import axios from 'axios';
 import { SpinnerComponent } from '../../shared/ui/spinner/spinner.component';
 import { CardComponent } from "../../shared/ui/card/card.component";
+import { faGoogle } from '@fortawesome/free-brands-svg-icons'; 
 
 
 @Component({
@@ -40,7 +41,7 @@ export class LoginComponent {
 
 
   constructor(private fb: FormBuilder, private library: FaIconLibrary, private router: Router) {
-    this.library.addIcons(faEye, faEyeSlash);
+    this.library.addIcons(faEye, faEyeSlash, faGoogle);
 
     this.form = this.fb.group({
       email: new FormControl('', [
@@ -86,5 +87,8 @@ export class LoginComponent {
 
   togglePasswordVisibility() {
     this.isPasswordVisible = !this.isPasswordVisible;
+  }
+  handleGoogleAuth() {
+    window.location.href = 'http://localhost:4000/auth/google'; // Redirect to backend Google OAuth route
   }
 }

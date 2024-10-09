@@ -10,12 +10,12 @@ button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.3s;
+  /* transition: background-color 0.3s; */
 }
 
 /* Variants */
 button.primary {
-  background-color: #007bff;
+  background: #007bff;
   color: white;
 }
 
@@ -25,9 +25,19 @@ button.secondary {
 }
 
 button.danger {
-  background-color: #dc3545;
-  color: white;
+  background-color: #f30018;
+  color: #fff;
 }
+button.ghost {
+  background: none;
+  cursor: pointer;
+  transition: color 0.3s;
+  border: 1px solid #4a729d;
+}
+button.ghost:hover {
+  background: #4a729d;
+  color: #ffffff;
+} 
 
 /* Sizes */
 button.small {
@@ -62,23 +72,24 @@ button i.material-icons.right {
 
 /* Disabled state */
 button:disabled {
-  background-color: #e0e0e0;
-  color: #6c757d;
+  background: rgba(69, 72, 75, 0.5);
+  color: #fff;
   cursor: not-allowed;
 }
 
-.ghost-button {
-  background: none;
-  border: none;
-  color: #007bff;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: bold;
-  padding: 0;
-  text-decoration: none;
-  transition: color 0.3s;
+
+
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; 
 }
 
-.ghost-button:hover {
-  color: #0056b3;
+button fa-icon:first-child {
+  margin-right: 8px;
+}
+
+button fa-icon:last-child {
+  margin-left: 8px;
 }

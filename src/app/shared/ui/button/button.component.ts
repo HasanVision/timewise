@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './button.component.css'
 })
 export class ButtonComponent {
-  @Input() label: string = 'Button'; // Default label
+  @Input() label: string = ''; // Default label
   @Input() type: 'button' | 'submit' | 'reset' = 'button'; // Button type
   @Input() disabled: boolean = false; // Disabled state
   @Input() variant: 'primary' | 'secondary' | 'danger' | 'ghost' = 'primary' ; // Variant for styling

@@ -6,6 +6,7 @@ import { ErrorComponent } from "../../shared/ui/error/error.component";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { faGoogle } from '@fortawesome/free-brands-svg-icons'; 
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import axios from 'axios';
@@ -39,7 +40,7 @@ export class RegisterComponent {
   successMessage: string = '';
 
   constructor(private fb: FormBuilder, private library: FaIconLibrary) {
-    this.library.addIcons(faEye, faEyeSlash);
+    this.library.addIcons(faEye, faEyeSlash, faGoogle);
 
     this.form = this.fb.group(
       {
@@ -102,5 +103,9 @@ export class RegisterComponent {
 
   toggleConfirmPasswordVisibility() {
     this.isConfirmPasswordVisible = !this.isConfirmPasswordVisible;
+  }
+
+  handleGoogleAuth() {
+    window.location.href = 'http://localhost:4000/auth/google'; // Redirect to backend Google OAuth route
   }
 }
