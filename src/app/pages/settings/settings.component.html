@@ -1,21 +1,24 @@
+<app-card title="Settings" subtitle="Modify your settings here">
+
 <div class="settings-container">
     <form [formGroup]="form" (ngSubmit)="onSubmit()" >
       <div *ngIf="successMessage" class="success">{{ successMessage }}</div>
       <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
   
       <label for="firstname">First Name</label>
-      <input id="firstname" formControlName="firstname" />
+      <app-input-text id="firstname" formControlName="firstname" />
   
       <label for="lastname">Last Name</label>
-      <input id="lastname" formControlName="lastname" />
+      <app-input-text id="lastname" formControlName="lastname" />
   
       <label for="email">Email</label>
-      <input id="email" formControlName="email"  />
+      <app-input-text id="email" formControlName="email"  />
   
-      <label for="password">Password (Optional)</label>
-      <input id="password" formControlName="password" type="password" />
+      <label for="password">Password</label>
+      <app-input-text id="password" formControlName="password" type="password" />
   
-      <button type="submit" [disabled]="form.invalid || isLoading">Save Settings</button>
+      <app-button type="submit" [disabled]="form.invalid || isLoading">Save Settings</app-button>
       <div *ngIf="isLoading">Saving...</div>
     </form>
   </div>
+</app-card>

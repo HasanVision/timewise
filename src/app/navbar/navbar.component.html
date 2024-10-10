@@ -5,7 +5,7 @@
      
       <div *ngIf="isLoggedIn$ | async">
         <app-button [variant]="getButtonVariant('/dashboard')">
-          <a routerLink="/dashboard">Dashboard</a>
+          <a href="/dashboard">Dashboard</a>
         </app-button>
       </div>
     </div>
@@ -13,8 +13,8 @@
     <div class="navbar__right">
       <!-- Settings and login/logout buttons on the right -->
       <div>
-        <app-button [variant]="getButtonVariant('/')">
-          <a routerLink="/">Settings</a>
+        <app-button [variant]="getButtonVariant('/settings')">
+          <a href="/settings">Settings</a>
         </app-button>
       </div>
       

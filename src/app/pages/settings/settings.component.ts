@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ButtonComponent } from '../../shared/ui/button/button.component';
 import { AuthService } from '../../services/auth.service';
+import { CardComponent } from '../../shared/ui/card/card.component';
+import { InputTextComponent } from '../../shared/ui/input-text/input-text.component';
 import { Router } from '@angular/router';
 import axios from 'axios';
 import { CommonModule } from '@angular/common';
@@ -11,7 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'app-settings',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ButtonComponent],
+  imports: [CommonModule, ReactiveFormsModule, ButtonComponent, CardComponent, InputTextComponent],
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.css']
 })
