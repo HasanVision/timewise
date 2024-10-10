@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-label',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './label.component.html',
   styleUrls: ['./label.component.css']
 })

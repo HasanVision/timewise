@@ -1,0 +1,7 @@
+<div class="tooltip-container">
+    <ng-content></ng-content>
+    <div *ngIf="isVisible" class="tooltip-box">
+      {{ text }}
+      <!-- <span class="tooltip-icon">?</span> -->
+    </div>
+  </div>

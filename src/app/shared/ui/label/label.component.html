@@ -1,1 +1,9 @@
-<label [attr.for]="for">{{ text }}</label>
+<div class="label-container">
+    <label [attr.for]="for">
+      {{ text }}
+      <span *ngIf="tooltip" class="tooltip-icon">?</span>
+    </label>
+    <div *ngIf="tooltip" class="tooltip-box">
+      {{ tooltip }}
+    </div>
+  </div>

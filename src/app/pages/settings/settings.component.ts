@@ -9,12 +9,13 @@ import { Router } from '@angular/router';
 import axios from 'axios';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TooltipComponent } from '../../shared/ui/tooltip/tooltip.component';
 
 
 @Component({
   selector: 'app-settings',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ButtonComponent, CardComponent, InputTextComponent, LabelComponent],
+  imports: [CommonModule, ReactiveFormsModule, ButtonComponent, CardComponent, InputTextComponent, LabelComponent, TooltipComponent],
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.css']
 })
