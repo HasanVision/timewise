@@ -67,7 +67,8 @@ export class LoginComponent {
     
         // Store user data in localStorage
         localStorage.setItem('user', JSON.stringify(response.data.user));
-        this.authService.login()
+        this.authService.login(response.data.user)
+        console.log('User logged in:', response.data.user);
     
         this.loginError = null;
     

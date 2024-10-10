@@ -61,8 +61,5 @@ const register: RequestHandler = async (req, res ) => {
 };
 
 
-const currentUser: RequestHandler = async (req, res, next) => {
-    res.json({ message: 'Current User' });
-};
 
-export { register, currentUser };
+export { register };

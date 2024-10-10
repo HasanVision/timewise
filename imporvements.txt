@@ -10,7 +10,7 @@
 3. Enhance the User Registration/Login Flow
 
 	•	Keep Users Logged In: Implement a “Remember Me” checkbox on the login page, allowing users to stay logged in for a longer session.
-	•	Magic Link Authentication: Since you’re already using a magic link for verification, you could consider implementing this for login as well. This would provide passwordless authentication.
+	•	Magic Link Authentication: Since you’re already using a magic link for verification, you could consider implementing this for login as well. This would provide password less authentication.
 
 4. Better Navigation
 

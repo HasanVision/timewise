@@ -1,5 +1,6 @@
-import { register, currentUser } from './registerController.js';
+import { register } from './registerController.js';
 import { login } from './loginController.js';
+import { currentUser } from './currentUser.js';
 import forgotPasswordHandler from './forgotPasswordController.js';
 import { loginLimiter, resetPasswordLimiter } from '../middlewares/rateLimiter.js';
 import fetchAndStoreIPInfo  from '../middlewares/IpMiddleware.js';
