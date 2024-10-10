@@ -40,12 +40,13 @@ export class SettingsComponent implements OnInit {
         console.log("Fetching user data", user);
         this.currentUser = user;
         this.form.patchValue({
-          firstName: user.firstName,
-          lastName: user.lastName,
+          firstname: user.firstname,
+          lastname: user.lastname,
           email: user.email,
         });
       },
-      (error ) => {
+      (error) => {
+        console.error("Error fetching user data:", error);  // Log the error
         this.errorMessage = 'An error occurred while fetching user data';
       }
     )

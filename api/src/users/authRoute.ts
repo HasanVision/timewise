@@ -22,7 +22,7 @@ const UserRoute = express.Router();
 UserRoute.use(fetchAndStoreIPInfo);
 UserRoute.post('/register', register);
 UserRoute.post('/login', loginLimiter ,login);
-UserRoute.get('/current-user', currentUser);
+UserRoute.get('/current-user',authenticateToken, currentUser);
 UserRoute.post('/forgot-password', resetPasswordLimiter, forgotPasswordHandler);
 UserRoute.post('/verify-reset-password-token', verifyResetPasswordToken);
 UserRoute.post('/new-password', resetPasswordLimiter, newPasswordHandler);
