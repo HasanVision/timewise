@@ -12,6 +12,7 @@ import axios from 'axios';
 import { SpinnerComponent } from '../../../shared/ui/spinner/spinner.component';
 import { CardComponent } from "../../../shared/ui/card/card.component";
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'; 
+import { AuthService } from '../../../services/auth.service';
 
 
 @Component({
@@ -40,7 +41,7 @@ export class LoginComponent {
   isSuccessful: boolean = false;
 
 
-  constructor(private fb: FormBuilder, private library: FaIconLibrary, private router: Router) {
+  constructor(private fb: FormBuilder, private library: FaIconLibrary, private router: Router, private authService: AuthService) {
     this.library.addIcons(faEye, faEyeSlash, faGoogle);
 
     this.form = this.fb.group({
@@ -66,6 +67,7 @@ export class LoginComponent {
     
         // Store user data in localStorage
         localStorage.setItem('user', JSON.stringify(response.data.user));
+        this.authService.login()
     
         this.loginError = null;
     
@@ -89,10 +91,10 @@ export class LoginComponent {
     this.isPasswordVisible = !this.isPasswordVisible;
   }
   handleGoogleAuth() {
-    window.location.href = 'http://localhost:4000/auth/google'; // Redirect to backend Google OAuth route
+    window.location.href = 'http://localhost:4000/auth/google'; 
   }
   resendEmail() {
-    const email = this.form.get('email')?.value; // Assuming the email is available from your form
+    const email = this.form.get('email')?.value; 
     if (email) {
       axios.post('http://localhost:4000/api/resend-verification', { email })
         .then(response => {

@@ -18,7 +18,7 @@ const UserRoute = express.Router();
 
 UserRoute.use(fetchAndStoreIPInfo);
 UserRoute.post('/register', register);
-UserRoute.post('/login', fetchAndCompareIP, loginLimiter ,login);
+UserRoute.post('/login', loginLimiter ,login);
 UserRoute.get('/current-user', currentUser);
 UserRoute.post('/forgot-password', resetPasswordLimiter, forgotPasswordHandler);
 UserRoute.post('/verify-reset-password-token', verifyResetPasswordToken);
@@ -30,3 +30,4 @@ UserRoute.post('/resend-verification', resendVerification);
 export default UserRoute;
 
 // TODO: test Ip info middleware when the app is deployed
+// TODO: test Ip COMPARE when the app is deployed

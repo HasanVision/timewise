@@ -40,7 +40,7 @@ const magicVerifyToken: RequestHandler = async (req, res) => {
       data: { emailVerified: new Date() },
     });
 
-    await sendWelcomeEmail(user.email, user.firstname);
+    // await sendWelcomeEmail(user.email, user.firstname);
 
   
     await db.magicLinkToken.delete({ where: { token } });
@@ -55,3 +55,5 @@ const magicVerifyToken: RequestHandler = async (req, res) => {
 };
 
 export default magicVerifyToken;
+
+// TODO: put back the welcome email when deploying to production
