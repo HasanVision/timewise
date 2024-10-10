@@ -15,7 +15,7 @@ const fetchAndStoreIPInfo = async (req: Request, res: Response, next: NextFuncti
     userIP = '8.8.8.8'; 
   }
 
-  console.log(`User IP: ${userIP}`);
+  // console.log(`User IP: ${userIP}`);
 
   if (!userIP) {
     console.log('Could not determine user IP');
@@ -33,7 +33,7 @@ const fetchAndStoreIPInfo = async (req: Request, res: Response, next: NextFuncti
     } = response.data;
 
     if (!ip || !city || !country || !region) {
-      console.log('Missing required IP info fields');
+      // console.log('Missing required IP info fields');
       return next();
     }
 
@@ -69,7 +69,7 @@ const fetchAndStoreIPInfo = async (req: Request, res: Response, next: NextFuncti
       }
     });
 
-    console.log('IP information saved successfully.');
+    // console.log('IP information saved successfully.');
   } catch (error) {
     console.error("Error fetching IP info: ", error);
   }
@@ -78,3 +78,5 @@ const fetchAndStoreIPInfo = async (req: Request, res: Response, next: NextFuncti
 };
 
 export default fetchAndStoreIPInfo;
+
+// TODO: when user has multiple devices

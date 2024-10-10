@@ -63,7 +63,7 @@ export const sendPasswordResetSuccessEmail = async (email: string) => {
              <p>Your Company Name</p>`
     });
 
-    console.log(`Password reset success email sent to ${email}`);
+    // console.log(`Password reset success email sent to ${email}`);
   } catch (error) {
     console.error('Error sending password reset success email:', error);
   }

@@ -35,6 +35,7 @@ export class ResetPasswordComponent implements OnInit {
   errorMessage: string = '';
   isPasswordVisible: boolean = false;
   isConfirmPasswordVisible: boolean = false;
+  isResetSuccessful: boolean = false;
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private library: FaIconLibrary) {
     this.library.addIcons(faEye, faEyeSlash);
@@ -75,6 +76,7 @@ export class ResetPasswordComponent implements OnInit {
         });
         this.successMessage = 'Password reset successful!';
         this.errorMessage = '';
+        this.isResetSuccessful = true;
       } catch (error) {
         if (axios.isAxiosError(error)) {
           // Axios-specific error handling
@@ -95,5 +97,13 @@ export class ResetPasswordComponent implements OnInit {
 
   toggleConfirmPasswordVisibility() {
     this.isConfirmPasswordVisible = !this.isConfirmPasswordVisible;
+  }
+  onButtonClick() {
+    if (this.isResetSuccessful) {
+    
+      this.router.navigate(['/login']);
+    } else {
+      this.onSubmit();
+    }
   }
 }
