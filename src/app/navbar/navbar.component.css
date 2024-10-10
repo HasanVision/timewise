@@ -1,6 +1,7 @@
 .navbar {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     background-color: #333;
     padding: 1rem;
   }
@@ -11,13 +12,22 @@
     text-decoration: none;
   }
   
-  .navbar__links {
-    list-style-type: none;
+  .navbar__left,
+  .navbar__right {
     display: flex;
     gap: 1rem;
   }
   
+  .navbar__right {
+    justify-content: flex-end;
+  }
+  
   .navbar__links a {
     color: white;
+    text-decoration: none;
+  }
+  
+  app-button a {
+    color: inherit; /* Ensures text inside the button keeps the correct color */
     text-decoration: none;
   }

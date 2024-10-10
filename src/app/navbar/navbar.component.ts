@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../shared/ui/button/button.component';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -15,9 +15,14 @@ import { Observable } from 'rxjs';
 export class NavbarComponent {
   isLoggedIn$: Observable<boolean>;
 
-  constructor(private authService: AuthService, private router: Router) { 
-    // Subscribe to the isLoggedIn$ observable
+  constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) { 
     this.isLoggedIn$ = this.authService.isLoggedIn$();
+  }
+  isActiveRoute(route: string): boolean {
+    return this.router.url === route;
+  }
+  getButtonVariant(route: string): 'primary' | 'secondary' | 'ghost' {
+    return this.isActiveRoute(route) ? 'primary' : 'secondary';
   }
 
   logout() {

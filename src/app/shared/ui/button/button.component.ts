@@ -9,12 +9,12 @@ import { CommonModule } from '@angular/common';
   styleUrl: './button.component.css'
 })
 export class ButtonComponent {
-  @Input() label: string = ''; // Default label
-  @Input() type: 'button' | 'submit' | 'reset' = 'button'; // Button type
-  @Input() disabled: boolean = false; // Disabled state
-  @Input() variant: 'primary' | 'secondary' | 'danger' | 'ghost' = 'primary' ; // Variant for styling
-  @Input() size: 'small' | 'medium' | 'large' = 'medium'; // Size of the button
-  @Input() icon: string = ''; // Icon name
-  @Input() iconPosition: 'left' | 'right' = 'left'; // Icon position
-  @Input() fullWidth: boolean = false; // Button width
+  @Input() label: string = ''; 
+  @Input() type: 'button' | 'submit' | 'reset' = 'button';
+  @Input() disabled: boolean = false; 
+  @Input() variant: 'primary' | 'secondary' | 'danger' | 'ghost' = 'primary' ;
+  @Input() size: 'small' | 'medium' | 'large' = 'medium';
+  @Input() icon: string = ''; 
+  @Input() iconPosition: 'left' | 'right' = 'left'; 
+  @Input() fullWidth: boolean = false;
 }
