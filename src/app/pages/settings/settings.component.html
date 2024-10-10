@@ -5,17 +5,28 @@
       <div *ngIf="successMessage" class="success">{{ successMessage }}</div>
       <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
   
-      <label for="firstname">First Name</label>
+      <app-label text="First name" for="firstname"></app-label>
       <app-input-text id="firstname" formControlName="firstname" />
   
-      <label for="lastname">Last Name</label>
+      <app-label text="Last name" for="lastname"></app-label>
       <app-input-text id="lastname" formControlName="lastname" />
   
-      <label for="email">Email</label>
+      <app-label text="Primary Email address" for="email"></app-label>
       <app-input-text id="email" formControlName="email"  />
+
+      <app-label text="Secondary Email address" for="email"></app-label>
+      <app-input-text id="email" formControlName="email"  />
+
+      <app-label text="Current Password" for="password" ></app-label>
+      <app-input-text id="password" formControlName="password" type="password" placeholder="******" />
+
+      
   
-      <label for="password">Password</label>
-      <app-input-text id="password" formControlName="password" type="password" />
+      <app-label text="New Password" for="password"></app-label>
+      <app-input-text id="password" formControlName="password" type="password" placeholder="******" />
+
+      <app-label text="Confirm New Password" for="password"></app-label>
+      <app-input-text id="password" formControlName="password" type="password" placeholder="******" />
   
       <app-button type="submit" [disabled]="form.invalid || isLoading">Save Settings</app-button>
       <div *ngIf="isLoading">Saving...</div>
