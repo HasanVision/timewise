@@ -50,10 +50,12 @@ export class SettingsComponent implements OnInit {
       }
     )
   }
+ 
   async onSubmit() {
     if (this.form.valid) {
       this.isLoading = true;
       const { firstName, lastName, password } = this.form.value;
+      const token = localStorage.getItem('accessToken');
       try {
         const response = await axios.put('http://localhost:4000/api/update-user', {
           firstName,
@@ -62,7 +64,7 @@ export class SettingsComponent implements OnInit {
         }, {
           // withCredentials: true,
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`, // Make sure you're sending the JWT token
+            Authorization: `Bearer ${token}`, // Make sure you're sending the JWT token
             
           },
           

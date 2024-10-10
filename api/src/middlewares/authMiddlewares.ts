@@ -1,27 +1,71 @@
 import { Request, Response, NextFunction, RequestHandler } from 'express';
 import jwt, { JwtPayload, VerifyErrors } from 'jsonwebtoken';
 
+const JWT_SECRET = process.env["JWT_SECRET"]!;
+
 const authenticateToken: RequestHandler = (req: Request, res: Response, next: NextFunction): void => {
   const token = req.cookies?.accessToken || (req.headers['authorization']?.split(' ')[1]);
-  console.log('headers', req.headers);
-  console.log('cookies', req.cookies);
+  
   if (!token) {
     res.status(401).json({ message: 'No token provided' });
-    return; 
+    return;
   }
 
   console.log("Received Token", token);
 
-  jwt.verify(token, process.env["JWT_SECRET"]!, (err: VerifyErrors | null, user: JwtPayload | string | undefined) => {
-    console.log("Decoded Token", user);
+  // Verify the token using the secret
+  jwt.verify(token, JWT_SECRET, (err: VerifyErrors | null, decodedToken: JwtPayload | string | undefined) => {
     if (err) {
+      console.error("Token verification failed:", err);
       res.status(403).json({ message: 'Token is invalid or expired' });
-      return; 
+      return;
     }
 
-    req.user = user as JwtPayload; // Type assertion to access `JwtPayload` fields
-    next(); 
+    // If verification is successful, decodedToken will contain the payload
+    if (decodedToken && typeof decodedToken !== 'string') {
+      console.log("Decoded Token:", decodedToken);
+      req.user = decodedToken as JwtPayload;  // Safe type assertion
+      next();  // Continue to the next middleware
+    } else {
+      res.status(403).json({ message: 'Invalid token payload' });
+    }
   });
 };
 
 export { authenticateToken };
+// import { Request, Response, NextFunction, RequestHandler } from 'express';
+// import jwt, { JwtPayload, VerifyErrors } from 'jsonwebtoken';
+
+// const authenticateToken: RequestHandler = (req: Request, res: Response, next: NextFunction): void => {
+//   const token = req.cookies?.accessToken || (req.headers['authorization']?.split(' ')[1]);
+//   const JWT_SECRET = process.env['JWT_SECRET'];
+
+//   if (!JWT_SECRET) {
+//     console.error('JWT_SECRET is missing');
+//     res.status(500).json({ message: 'Internal server error' });
+//     return; 
+//   }
+//   // console.log('headers', req.headers);
+//   // console.log('cookies from authToken', req.cookies);
+
+//   if (!token) {
+//     res.status(401).json({ message: 'No token provided' });
+//     return; 
+//   }
+
+//   // console.log("Received Token", token);
+
+//   jwt.verify(token, JWT_SECRET, (err: VerifyErrors | null, user: JwtPayload | string | undefined) => {
+//     console.log("Decoded Token", user);
+//     console.log('JWT Secret from jwt.verify', JWT_SECRET);
+//     if (err) {
+//       res.status(403).json({ message: 'Token is invalid or expired' });
+//       return; 
+//     }
+
+//     req.user = user as JwtPayload; // Type assertion to access `JwtPayload` fields
+//     next(); 
+//   });
+// };
+
+// export { authenticateToken };

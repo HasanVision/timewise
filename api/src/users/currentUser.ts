@@ -1,5 +1,4 @@
 import { RequestHandler } from 'express';
-import { authenticateToken } from '../middlewares/authMiddlewares';
 import { CustomJwtPayload } from '../../../types/custom'; // Import your custom type
 
 const currentUser: RequestHandler = async (req, res, next) => {
