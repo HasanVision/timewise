@@ -34,7 +34,7 @@ export const sendMagicLinkEmail = async (email: string, token: string) => {
   };
 
 
-  
+
 export const sendResetPasswordEmail = async (
     email: string,
     token: string,
@@ -50,7 +50,25 @@ export const sendResetPasswordEmail = async (
     })
 }
 
-// TODO: Email Verification: reset password and email verification are similar processes. Consider reusing the email verification logic for the reset password process.
+export const sendPasswordResetSuccessEmail = async (email: string) => {
+  try {
+    await resend.emails.send({
+      from: 'reset-password@oxygen365.net', // Adjust this to your verified sender email
+      to: email,
+      subject: 'Your Password Has Been Reset Successfully',
+      html: `<p>Hello,</p>
+             <p>This is to inform you that your password has been successfully reset.</p>
+             <p>If you did not initiate this request, please contact support immediately.</p>
+             <p>Thank you,</p>
+             <p>Your Company Name</p>`
+    });
+
+    console.log(`Password reset success email sent to ${email}`);
+  } catch (error) {
+    console.error('Error sending password reset success email:', error);
+  }
+};
+
 // TODO: User Feedback: Improve the user interface to provide clear feedback during the verification process (e.g., loading spinners, success, and error messages).
 // TODO: 	Email Verification Link: Update the verification email to include a meaningful link to guide users.
 // TODO: Security Enhancements: Add security measures, such as token encryption or expiration checks, to ensure the verification process is secure.

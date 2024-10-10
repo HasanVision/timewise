@@ -1,6 +1,7 @@
 import { RequestHandler } from 'express';
 import { db } from '../../../lib/database.js'; 
 import bcrypt from 'bcryptjs';
+import { sendPasswordResetSuccessEmail } from '../../../lib/mail.js';
 
  const newPasswordHandler: RequestHandler = async (req, res) => {
   const { token, password } = req.body;
@@ -25,6 +26,7 @@ import bcrypt from 'bcryptjs';
       data: { password: hashedPassword }
     });
 
+    await sendPasswordResetSuccessEmail(resetToken.email);
     // Delete the token after successful reset
     await db.resetPasswordToken.delete({ where: { token } });
 
