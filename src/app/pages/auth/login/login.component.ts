@@ -64,9 +64,12 @@ export class LoginComponent {
           password,
         });
         this.isSuccessful = true;
+
+        const token = response.data.accessToken;
+        console.log('Access token:', token);
     
         // Store user data in localStorage
-        localStorage.setItem('user', JSON.stringify(response.data.user));
+        localStorage.setItem('accessToken', token);
         this.authService.login(response.data.user)
         console.log('User logged in:', response.data.user);
     

@@ -7,6 +7,7 @@ import { AuthGuard } from '../app/guards/auth.guard';
 import { ForgotPasswordComponent } from './pages/auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
 import { MagicLinkComponent } from './magic-link/magic-link.component';
+import { SettingsComponent } from './pages/settings/settings.component';
 
 
 export const routes: Routes = [
@@ -19,6 +20,7 @@ export const routes: Routes = [
             {path: 'forgot-password', component: ForgotPasswordComponent},
             {path: 'new-password', component: ResetPasswordComponent},
             {path: 'magic-link', component: MagicLinkComponent },
+            {path: 'settings', component: SettingsComponent, canActivate: [AuthGuard]}
         ]
     }
 ];

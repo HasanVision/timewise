@@ -1,1 +1,21 @@
-<p>settings works!</p>
+<div class="settings-container">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" >
+      <div *ngIf="successMessage" class="success">{{ successMessage }}</div>
+      <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+  
+      <label for="firstname">First Name</label>
+      <input id="firstname" formControlName="firstname" />
+  
+      <label for="lastname">Last Name</label>
+      <input id="lastname" formControlName="lastname" />
+  
+      <label for="email">Email</label>
+      <input id="email" formControlName="email"  />
+  
+      <label for="password">Password (Optional)</label>
+      <input id="password" formControlName="password" type="password" />
+  
+      <button type="submit" [disabled]="form.invalid || isLoading">Save Settings</button>
+      <div *ngIf="isLoading">Saving...</div>
+    </form>
+  </div>

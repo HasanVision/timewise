@@ -41,12 +41,20 @@ export class AuthService {
   // Check if the user is logged in by checking for user data in localStorage
   isLoggedIn(): boolean {
     return !!localStorage.getItem('user');
+    
   }
+
+  getAccessToken(): string | null {
+    return localStorage.getItem('accessToken');
+    
+  }
+  
 
   // Call this method after login to update the logged-in state
   login(user: any) {
     this.loggedInSubject.next(true);
-    this.currentUserSubject.next(user);
     localStorage.setItem('user', JSON.stringify(user));
+    this.currentUserSubject.next(user);
+    
   }
 }

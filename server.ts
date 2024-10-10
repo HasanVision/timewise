@@ -10,9 +10,11 @@ const port = 4000;
 // Middleware for parsing JSON bodies
 app.use(cors({
   origin: 'http://localhost:4200',
-  methods: ['GET', 'POST'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'withCredentials'],
+  credentials: true,
 }))
+app.options('*',cors())  //When you send a PUT request, browsers often send a preflight request (an OPTIONS request) to check the allowed methods on the server. 
 app.use(express.json());
 app.use('/api', UserRoute);
 
@@ -33,9 +35,9 @@ app.use((req, res, next) => {
     res.json({ message: 'Received', body: req.body });
   });
 
-  // console.log('Request Method:', req.method);
-  // console.log('Request Headers:', req.headers);
-  // console.log('Request Body:', req.body);
+  console.log('Request Method:', req.method);
+  console.log('Request Headers:', req.headers);
+  console.log('Request Body:', req.body);
   next();
 });
 
