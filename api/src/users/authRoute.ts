@@ -8,7 +8,7 @@ import verifyResetPasswordToken from './forgotPasswordVerificationController.js'
 import newPasswordHandler from './newPasswordHandler.js';
 import verifyMagicLinkHandler from './magicVerificationController.js';
 import  resendVerification  from './resendVerification.js';
-import fetchAndCompareIP from '../middlewares/ipMiddlewateCompare.js';
+import fetchAndCompareIP from '../middlewares/ipMiddlewareCompare.js';
 
 
 

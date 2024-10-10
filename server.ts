@@ -64,3 +64,5 @@ async function run() {
 }
 
 run();
+
+// TODO: implement callback for routes that require authentication

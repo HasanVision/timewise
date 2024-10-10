@@ -55,7 +55,6 @@ const fetchAndCompareIP = async (req: Request, res: Response, next: NextFunction
         }
       });
 
-      // Send alert email to the user
       await sendIPAlertEmail(user['email'], ipInfo);
       // TODO not sure if this is the right way to pass the email and ipInfo to the function
     }
