@@ -54,12 +54,12 @@ export class SettingsComponent implements OnInit {
   async onSubmit() {
     if (this.form.valid) {
       this.isLoading = true;
-      const { firstName, lastName, password } = this.form.value;
+      const { firstname, lastname, password } = this.form.value;
       const token = localStorage.getItem('accessToken');
       try {
         const response = await axios.put('http://localhost:4000/api/update-user', {
-          firstName,
-          lastName,
+          firstname,
+          lastname,
           password,
         }, {
           // withCredentials: true,
