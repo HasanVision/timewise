@@ -25,3 +25,5 @@ UserRoute.post('/resend-verification', resendVerification);
 
 
 export default UserRoute;
+
+// TODO: test Ip info middleware when the app is deployed

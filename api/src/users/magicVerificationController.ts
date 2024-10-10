@@ -1,5 +1,6 @@
 import { RequestHandler } from 'express';
 import { db } from '../../../lib/database.js';
+import { sendWelcomeEmail } from '../../../lib/mail.js';
 
 const magicVerifyToken: RequestHandler = async (req, res) => {
   const { token } = req.body;
@@ -24,11 +25,22 @@ const magicVerifyToken: RequestHandler = async (req, res) => {
       return; 
     }
 
+    const user = await db.user.findUnique({
+      where: { email: verificationToken.email },
+    });
+
+    if (!user) {
+       res.status(400).json({ message: 'User not found.' });
+       return
+    }
+
 
     await db.user.update({
       where: { email: verificationToken.email },
       data: { emailVerified: new Date() },
     });
+
+    await sendWelcomeEmail(user.email, user.firstname);
 
   
     await db.magicLinkToken.delete({ where: { token } });
