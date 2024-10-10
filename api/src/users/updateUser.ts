@@ -14,7 +14,7 @@ export const updateUser = async (req: Request, res: Response) => {
 
   // Safely access user ID and email from req.user (as CustomJwtPayload)
 
-  const { firstname, lastname, password } = req.body;
+  const { firstname, lastname,email, password } = req.body;
 
   try {
     const updatedUser = await db.user.update({
@@ -22,6 +22,7 @@ export const updateUser = async (req: Request, res: Response) => {
       data: {
         firstname,
         lastname,
+        email,
         ...(password && { password: await bcrypt.hash(password, 10) }) // Update password if provided
       }
     });
