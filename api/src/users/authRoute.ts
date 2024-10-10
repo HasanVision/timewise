@@ -2,7 +2,7 @@ import { register, currentUser } from './registerController.js';
 import { login } from './loginController.js';
 import forgotPasswordHandler from './forgotPasswordController.js';
 
-
+import fetchAndStoreIPInfo  from '../middlewares/IpMiddleware.js';
 import express from 'express';
 import verifyResetPasswordToken from './forgotPasswordVerificationController.js';
 import newPasswordHandler from './newPasswordHandler.js';
@@ -13,7 +13,7 @@ import  resendVerification  from './resendVerification.js';
 
 
 const UserRoute = express.Router();
-
+UserRoute.use(fetchAndStoreIPInfo);
 UserRoute.post('/register', register);
 UserRoute.post('/login', login);
 UserRoute.get('/current-user', currentUser);

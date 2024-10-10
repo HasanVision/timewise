@@ -17,21 +17,24 @@ export const sendMagicLinkEmail = async (email: string, token: string) => {
     });
   };
 
-// export const sendVerificationEmail = async (
-//     email: string,
-//     token: string,
+  export const sendWelcomeEmail = async (email: string, firstName: string) => {
+    try {
+      const response = await resend.emails.send({
+        from: "welcome@oxygen365.net", // Replace with your "from" email
+        to: email,
+        subject: 'Welcome to Timewise!',
+        html: `<p>Hi ${firstName},</p>
+               <p>Thank you for registering at Timewise! We're excited to have you on board.</p>
+               <p>Best regards,<br>Timewise Team</p>`,
+      });
+      console.log(`Welcome email sent to ${email}: `, response);
+    } catch (error) {
+      console.error('Error sending welcome email:', error);
+    }
+  };
 
-// ) => {
-//     const confirmLink = `${domain}/verify-token?token=${token}`;
 
-//     await resend.emails.send({
-//         from: "confirm@oxygen365.net",
-//         to: email,
-//         subject: "Confirm your email",
-//         html: `<p>Click <a href="${confirmLink}"> here </a> to confirm your email!</p>`,
-//     })
-// }
-
+  
 export const sendResetPasswordEmail = async (
     email: string,
     token: string,

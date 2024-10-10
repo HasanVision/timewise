@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
 import { LayoutComponent } from './shared/layout/layout.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { LoginComponent } from './pages/login/login.component';
-import { RegisterComponent } from './pages/register/register.component';
+import { LoginComponent } from '../app/pages/auth/login/login.component';
+import { RegisterComponent } from './pages/auth/register/register.component';
 import { AuthGuard } from '../app/guards/auth.guard';
-import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
-import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import { ForgotPasswordComponent } from './pages/auth/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
 import { MagicLinkComponent } from './magic-link/magic-link.component';
 
 

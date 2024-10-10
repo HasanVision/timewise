@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ButtonComponent } from '../../shared/ui/button/button.component';
-import { ErrorComponent } from '../../shared/ui/error/error.component';
-import { InputTextComponent } from '../../shared/ui/input-text/input-text.component';
+import { ButtonComponent } from '../../../shared/ui/button/button.component';
+import { ErrorComponent } from '../../../shared/ui/error/error.component';
+import { InputTextComponent } from '../../../shared/ui/input-text/input-text.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { CommonModule } from '@angular/common';
 import { RouterModule , Router} from '@angular/router';
 import axios from 'axios';
-import { SpinnerComponent } from '../../shared/ui/spinner/spinner.component';
-import { CardComponent } from "../../shared/ui/card/card.component";
+import { SpinnerComponent } from '../../../shared/ui/spinner/spinner.component';
+import { CardComponent } from "../../../shared/ui/card/card.component";
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'; 
 
 

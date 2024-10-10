@@ -40,11 +40,11 @@
         <app-error [control]="form"></app-error>
 
         <app-button [fullWidth]="true" label="Login" type="submit" class="login__container--form--submit" [disabled]="form.invalid"></app-button>
-        <div class="google-auth">
+        <!-- <div class="google-auth">
           <app-button variant="ghost" [fullWidth]="true" (click)="handleGoogleAuth()">
             <fa-icon [icon]="['fab', 'google']"></fa-icon> Sign in with Google
           </app-button>
-        </div>
+        </div> -->
       </form>
       <div >
           <p *ngIf="isRegisterPage">
