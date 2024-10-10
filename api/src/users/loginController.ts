@@ -49,3 +49,5 @@ export const login: RequestHandler = async (req, res, next) => {
     res.status(500).json({ message: 'An error occurred while logging in.' });
   }
 };
+
+
