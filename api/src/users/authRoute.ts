@@ -8,6 +8,7 @@ import verifyResetPasswordToken from './forgotPasswordVerificationController.js'
 import newPasswordHandler from './newPasswordHandler.js';
 import verifyMagicLinkHandler from './magicVerificationController.js';
 import  resendVerification  from './resendVerification.js';
+import fetchAndCompareIP from '../middlewares/ipMiddlewateCompare.js';
 
 
 
@@ -17,7 +18,7 @@ const UserRoute = express.Router();
 
 UserRoute.use(fetchAndStoreIPInfo);
 UserRoute.post('/register', register);
-UserRoute.post('/login', loginLimiter ,login);
+UserRoute.post('/login', fetchAndCompareIP, loginLimiter ,login);
 UserRoute.get('/current-user', currentUser);
 UserRoute.post('/forgot-password', resetPasswordLimiter, forgotPasswordHandler);
 UserRoute.post('/verify-reset-password-token', verifyResetPasswordToken);

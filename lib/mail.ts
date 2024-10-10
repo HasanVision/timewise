@@ -69,6 +69,26 @@ export const sendPasswordResetSuccessEmail = async (email: string) => {
   }
 };
 
+export const sendIPAlertEmail = async (email: string, ipInfo: any) => {
+  const emailContent = `
+    <p>We detected a login from a new location:</p>
+    <ul>
+      <li><strong>IP Address:</strong> ${ipInfo.ip}</li>
+      <li><strong>Location:</strong> ${ipInfo.city}, ${ipInfo.region}, ${ipInfo.country_name}</li>
+      <li><strong>Organization:</strong> ${ipInfo.org || 'Unknown'}</li>
+      <li><strong>Timezone:</strong> ${ipInfo.timezone}</li>
+    </ul>
+    <p>If this was you, no further action is needed. If not, please contact support immediately.</p>
+  `;
+
+  await resend.emails.send({
+    from: "security@oxygen365.net",
+    to: email,
+    subject: 'New Login from Unfamiliar Location',
+    html: emailContent,
+  });
+};
+
 // TODO: User Feedback: Improve the user interface to provide clear feedback during the verification process (e.g., loading spinners, success, and error messages).
 // TODO: 	Email Verification Link: Update the verification email to include a meaningful link to guide users.
 // TODO: Security Enhancements: Add security measures, such as token encryption or expiration checks, to ensure the verification process is secure.

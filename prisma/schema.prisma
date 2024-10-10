@@ -60,6 +60,7 @@ model User {
   image                 String?
   Account               Account[]
   TwoFactorConfirmation TwoFactorConfirmation?
+  ipInfo                IPInfo[]
 }
 
 model VerificationToken {
@@ -83,6 +84,8 @@ model MagicLinkToken {
 model IPInfo {
   id                   String   @id @default(cuid())
   ip                   String
+  userId               String
+  User                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   network              String?
   version              String?
   city                 String
