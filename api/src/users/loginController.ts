@@ -56,9 +56,9 @@ export const login: RequestHandler = async (req, res) => {
 
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true, 
-      secure: isProduction,  // Only secure in production (HTTPS)
-      sameSite: 'lax',       // CSRF protection
-      maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+      secure: isProduction,  
+      sameSite: 'lax',      
+      maxAge: 24 * 60 * 60 * 1000 // 7 days
     });
 
     // Send the access token in the response body

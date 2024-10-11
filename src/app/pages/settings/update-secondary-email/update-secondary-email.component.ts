@@ -26,6 +26,7 @@ export class UpdateSecondaryEmailComponent implements OnInit {
   currentUser: any;
   errorMessage: string = '';
   successMessage: string = '';
+  isEmailVerified: boolean = false;
 
   constructor(private fb: FormBuilder, private authService: AuthService) {
     this.form = this.fb.group({

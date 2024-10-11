@@ -44,4 +44,12 @@ export class VerifySecondaryEmailComponent implements OnInit {
         this.isLoading = false;
       });
   }
+
+  navigateToDashboard() {
+    this.router.navigate(['/dashboard']);
+  }
+  
+  navigateToSupport() {
+    this.router.navigate(['/support']);
+  }
 }

@@ -3,12 +3,12 @@ import { LayoutComponent } from './shared/layout/layout.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginComponent } from '../app/pages/auth/login/login.component';
 import { RegisterComponent } from './pages/auth/register/register.component';
-import { AuthGuard } from '../app/guards/auth.guard';
+import { AuthGuard } from '../../src/app/pages/auth/guards/auth.guard';
 import { ForgotPasswordComponent } from './pages/auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
-import { MagicLinkComponent } from './magic-link/magic-link.component';
+import { MagicLinkComponent } from './pages/auth/magic-link/magic-link.component';
 import { SettingsComponent } from './pages/settings/settings.component';
-import { VerifySecondaryEmailComponent } from './verify-secondary-email/verify-secondary-email.component';
+import { VerifySecondaryEmailComponent } from './pages/auth/verify-secondary-email/verify-secondary-email.component';
 
 
 export const routes: Routes = [

@@ -1,0 +1,20 @@
+<div class="verification-container">
+    <div *ngIf="isLoading" class="loading-message">
+      <p>Verifying your email...</p>
+      <div class="spinner"></div> 
+    </div>
+    
+    <div *ngIf="!isLoading && successMessage" class="success-message">
+      <h2>Success!</h2>
+      <p>{{ successMessage }}</p>
+      <button class="btn-back" (click)="navigateToDashboard()">Go to Dashboard</button>
+    </div>
+  
+    <div *ngIf="!isLoading && errorMessage" class="error-message">
+      <h2>Error</h2>
+      <p>{{ errorMessage }}</p>
+      <button class="btn-back" (click)="navigateToSupport()">Contact Support</button>
+    </div>
+  </div>
+
+  <!-- // TODO: update to the spinner component -->
