@@ -11,28 +11,25 @@
       <app-label text="Last name" for="lastname"></app-label>
       <app-input-text id="lastname" formControlName="lastname" />
   
-      <app-label text="Primary Email address" for="email"></app-label>
+      <app-label text="Primary Email address" for="primaryEmail"></app-label>
       <app-tooltip text="We will use this email to contact you">
         <span class="tooltip-icon">?</span>
       </app-tooltip>
-      <app-input-text id="email" formControlName="email"  />
-
-      <app-label text="Secondary Email address" for="email" ></app-label>
-     
-      <app-input-text id="email" formControlName="email"  />
+      <app-input-text id="email" formControlName="primaryEmail"  />
       
       <app-label text="Current Password" for="password" ></app-label>
-      <app-input-text id="password" formControlName="password" type="password" placeholder="******" />
+      <app-input-text id="Cpassword" formControlName="password" type="password" placeholder="******" />
 
       <app-label text="New Password" for="password"></app-label>
-      <app-input-text id="password" formControlName="password" type="password" placeholder="******" />
+      <app-input-text id="Npassword1" formControlName="password" type="password" placeholder="******" />
 
       <app-label text="Confirm New Password" for="password"></app-label>
-      <app-input-text id="password" formControlName="password" type="password" placeholder="******" />
+      <app-input-text id="Npassword2" formControlName="password" type="password" placeholder="******" />
   
       <app-button type="submit" [disabled]="form.invalid || isLoading">Save Settings</app-button>
       <div *ngIf="isLoading">Saving...</div>
     </form>
+    <app-update-secondary-email></app-update-secondary-email>
   </div>
   
 </app-card>

@@ -10,12 +10,13 @@ import axios from 'axios';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TooltipComponent } from '../../shared/ui/tooltip/tooltip.component';
+import { UpdateSecondaryEmailComponent } from './update-secondary-email/update-secondary-email.component';
 
 
 @Component({
   selector: 'app-settings',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ButtonComponent, CardComponent, InputTextComponent, LabelComponent, TooltipComponent],
+  imports: [CommonModule, ReactiveFormsModule, ButtonComponent, CardComponent, InputTextComponent, LabelComponent, TooltipComponent, UpdateSecondaryEmailComponent],
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.css']
 })
@@ -30,7 +31,7 @@ export class SettingsComponent implements OnInit {
     this.form = this.fb.group({
       firstname: new FormControl('', [Validators.required]),
       lastname: new FormControl('', [Validators.required]),
-      email: new FormControl('', [
+      primaryEmail: new FormControl('', [
         Validators.required,
         Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
       ]),
@@ -41,12 +42,12 @@ export class SettingsComponent implements OnInit {
   ngOnInit(): void {
     this.authService.fetchCurrentUser().subscribe(
       (user) => {
-        console.log("Fetching user data", user);
+        // console.log("Fetching user data", user);
         this.currentUser = user;
         this.form.patchValue({
           firstname: user.firstname,
           lastname: user.lastname,
-          email: user.email,
+          primaryEmail: user.primaryEmail,
         });
       },
       (error) => {
@@ -59,13 +60,13 @@ export class SettingsComponent implements OnInit {
   async onSubmit() {
     if (this.form.valid) {
       this.isLoading = true;
-      const { firstname, lastname,email, password } = this.form.value;
+      const { firstname, lastname,primaryEmail, password } = this.form.value;
       const token = localStorage.getItem('accessToken');
       try {
         const response = await axios.put('http://localhost:4000/api/update-user', {
           firstname,
           lastname,
-          email,
+          primaryEmail,
           password,
         }, {
           // withCredentials: true,

@@ -12,13 +12,13 @@ import  resendVerification  from './resendVerification.js';
 import fetchAndCompareIP from '../middlewares/ipMiddlewareCompare.js';
 import { updateUser } from './updateUser.js';
 import { authenticateToken } from '../middlewares/authMiddlewares.js';
+import { updateSecondaryEmail} from './updateSecondaryEmail.js';
 
 
 
 
 const UserRoute = express.Router();
 
-// UserRoute.use(authenticateToken);
 UserRoute.use(fetchAndStoreIPInfo);
 UserRoute.post('/register', register);
 UserRoute.post('/login', loginLimiter ,login);
@@ -29,6 +29,7 @@ UserRoute.post('/new-password', resetPasswordLimiter, newPasswordHandler);
 UserRoute.post('/verify-magic-link', verifyMagicLinkHandler);
 UserRoute.post('/resend-verification', resendVerification);
 UserRoute.put('/update-user', authenticateToken, updateUser);
+UserRoute.put('/update-secondary-email', authenticateToken, updateSecondaryEmail);
 
 
 export default UserRoute;

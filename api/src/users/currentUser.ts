@@ -19,6 +19,7 @@ const currentUser: RequestHandler = async (req, res) => {
       select: {
         id: true,
         primaryEmail: true,
+        secondaryEmail: true,
         firstname: true,  
         lastname: true,   
       },
@@ -32,7 +33,8 @@ const currentUser: RequestHandler = async (req, res) => {
     // Return the user information
     res.json({
       id: existingUser.id,
-      email: existingUser.primaryEmail,
+      primaryEmail: existingUser.primaryEmail,
+      secondaryEmail: existingUser.secondaryEmail,
       firstname: existingUser.firstname, 
       lastname: existingUser.lastname,   
     });
