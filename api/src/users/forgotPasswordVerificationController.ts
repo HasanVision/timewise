@@ -26,8 +26,8 @@ const verifyResetPasswordToken: RequestHandler = async (req, res) => {
 
 
     await db.user.update({
-      where: { email: verificationToken.email },
-      data: { emailVerified: new Date() },
+      where: { primaryEmail: verificationToken.email },
+      data: { primaryEmailVerified: new Date() },
     });
 
   

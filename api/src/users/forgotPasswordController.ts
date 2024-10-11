@@ -6,25 +6,25 @@ import { sendResetPasswordEmail } from '../../../lib/mail.js';
 const router = express.Router();
 
 const forgotPasswordHandler: RequestHandler = async (req, res) => {
-  const { email } = req.body;
+  const { primaryEmail } = req.body;
 
-  if (!email) {
+  if (!primaryEmail) {
     res.status(400).json({ message: 'Email is required' });
     return;
   }
 
   try {
-    const user = await db.user.findUnique({ where: { email } });
+    const user = await db.user.findUnique({ where: { primaryEmail } });
     if (!user) {
       res.status(400).json({ message: 'User does not exist' });
       return;
     }
 
     // Generate reset token
-    const resetToken = await generateResetPasswordToken(email);
+    const resetToken = await generateResetPasswordToken(primaryEmail);
 
     // Send the reset password email
-    await sendResetPasswordEmail(email, resetToken.token);
+    await sendResetPasswordEmail(primaryEmail, resetToken.token);
 
     res.status(200).json({ message: 'Reset password link sent to your email.' });
   } catch (error) {

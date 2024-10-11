@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { db } from '../../../lib/database.js'; // Adjust the path to your Prisma setup
 import { Request, Response, NextFunction } from 'express';
+import { CustomJwtPayload } from '../../../types/custom'
 
 const fetchAndStoreIPInfo = async (req: Request, res: Response, next: NextFunction) => {
 
@@ -15,12 +16,21 @@ const fetchAndStoreIPInfo = async (req: Request, res: Response, next: NextFuncti
     userIP = '8.8.8.8'; 
   }
 
-  // console.log(`User IP: ${userIP}`);
-
-  if (!userIP) {
-    console.log('Could not determine user IP');
+  const user = req.user as CustomJwtPayload;
+  if (!user || !user.id) {
+    // console.log('No user found in the request');
     return next();
   }
+
+  const userId = user.id;
+
+
+
+
+
+  // console.log(`User IP: ${userIP}`);
+
+ 
 
   try {
     const response = await axios.get(`https://ipapi.co/${userIP}/json/`);
@@ -37,11 +47,14 @@ const fetchAndStoreIPInfo = async (req: Request, res: Response, next: NextFuncti
       return next();
     }
 
+
+
     await db.iPInfo.create({
       data: {
         ip,
         network: response.data.network || null,
         version: response.data.version || null,
+        userId,
         city,
         country,
         country_name,

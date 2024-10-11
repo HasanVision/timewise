@@ -26,7 +26,7 @@ const magicVerifyToken: RequestHandler = async (req, res) => {
     }
 
     const user = await db.user.findUnique({
-      where: { email: verificationToken.email },
+      where: { primaryEmail: verificationToken.email },
     });
 
     if (!user) {
@@ -36,8 +36,8 @@ const magicVerifyToken: RequestHandler = async (req, res) => {
 
 
     await db.user.update({
-      where: { email: verificationToken.email },
-      data: { emailVerified: new Date() },
+      where: { primaryEmail: verificationToken.email },
+      data: { primaryEmailVerified: new Date() },
     });
 
     // await sendWelcomeEmail(user.email, user.firstname);

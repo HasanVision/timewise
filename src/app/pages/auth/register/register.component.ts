@@ -46,7 +46,7 @@ export class RegisterComponent {
       {
         firstname: new FormControl('', [Validators.required]),
         lastname: new FormControl('', [Validators.required]),
-        email: new FormControl('', [
+        primaryEmail: new FormControl('', [
           Validators.required,
           Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
         ]),
@@ -69,14 +69,14 @@ export class RegisterComponent {
   async onSubmit() {
     if (this.form.valid) {
       this.isLoading = true;
-      const { firstname, lastname, email, password } = this.form.value;
+      const { firstname, lastname, primaryEmail, password } = this.form.value;
 
       try {
-        console.log('Registering user:', firstname, lastname, email, password);
+        console.log('Registering user:', firstname, lastname, primaryEmail, password);
         const response = await axios.post('http://localhost:4000/api/register', {
           firstName: firstname,
           lastName: lastname,
-          email,
+          primaryEmail,
           password,
         });
         // Set success message

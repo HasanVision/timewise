@@ -8,21 +8,21 @@ const JWT_EXPIRATION = '15m'; // Access token expires in 15 minutes
 const REFRESH_TOKEN_EXPIRATION = '7d'; // Refresh token expires in 7 days
 
 export const login: RequestHandler = async (req, res) => {
-  const { email, password } = req.body;
+  const { primaryEmail, password } = req.body;
 
-  if (!email || !password) {
+  if (!primaryEmail || !password) {
      res.status(400).json({ message: 'Please enter all fields' });
      return
   }
 
   try {
-    const existingUser = await db.user.findUnique({ where: { email } });
+    const existingUser = await db.user.findUnique({ where: { primaryEmail } });
     if (!existingUser) {
        res.status(400).json({ message: 'Invalid credentials' });
        return
     }
 
-    if (!existingUser.emailVerified) {
+    if (!existingUser.primaryEmailVerified) {
        res.status(403).json({ message: 'Please verify your email before logging in.' });
        return
     }
@@ -34,10 +34,10 @@ export const login: RequestHandler = async (req, res) => {
     }
 
     // Generate JWT tokens
-    const accessToken = jwt.sign({ id: existingUser.id, email: existingUser.email }, JWT_SECRET, {
+    const accessToken = jwt.sign({ id: existingUser.id, email: existingUser.primaryEmail }, JWT_SECRET, {
       expiresIn: JWT_EXPIRATION,
     });
-    const refreshToken = jwt.sign({ id: existingUser.id, email: existingUser.email }, JWT_SECRET, {
+    const refreshToken = jwt.sign({ id: existingUser.id, email: existingUser.primaryEmail }, JWT_SECRET, {
       expiresIn: REFRESH_TOKEN_EXPIRATION,
     });
 
@@ -52,7 +52,7 @@ export const login: RequestHandler = async (req, res) => {
     });
 
     // Send the access token in the response body
-    res.json({ accessToken, user: { id: existingUser.id, email: existingUser.email } });
+    res.json({ accessToken, user: { id: existingUser.id, email: existingUser.primaryEmail } });
     
   } catch (error) {
      res.status(500).json({ message: 'An error occurred while logging in.' });

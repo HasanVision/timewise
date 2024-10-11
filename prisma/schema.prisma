@@ -50,17 +50,19 @@ model TwoFactorToken {
 }
 
 model User {
-  id                    String                 @id @default(cuid())
-  firstname             String
-  lastname              String
-  email                 String                 @unique
-  emailVerified         DateTime?
-  password              String?
-  isTwoFactorEnabled    Boolean                @default(false)
-  image                 String?
-  Account               Account[]
-  TwoFactorConfirmation TwoFactorConfirmation?
-  ipInfo                IPInfo[]
+  id                     String                 @id @default(cuid())
+  firstname              String
+  lastname               String
+  primaryEmail           String                 @unique
+  primaryEmailVerified   DateTime?
+  secondaryEmail         String?                @unique
+  secondaryEmailVerified DateTime?
+  password               String?
+  isTwoFactorEnabled     Boolean                @default(false)
+  image                  String?
+  Account                Account[]
+  TwoFactorConfirmation  TwoFactorConfirmation?
+  ipInfo                 IPInfo[]
 }
 
 model VerificationToken {

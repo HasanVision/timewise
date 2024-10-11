@@ -7,16 +7,16 @@ import { db } from "../../../lib/database.js";
 
 const resendCooldownMap = new Map<string, number>();
 const resendVerification: RequestHandler = async (req, res) => {
-    const { email } = req.body;
+    const { primaryEmail } = req.body;
 
-    if (!email) {
+    if (!primaryEmail) {
          res.status(400).json({ message: 'Email is required' });
          return
       }
 
     // Rate limiting (5-minute cooldown)
     const cooldownTime = 5 * 60 * 1000; // 5 minutes
-    const lastRequestTime = resendCooldownMap.get(email);
+    const lastRequestTime = resendCooldownMap.get(primaryEmail);
 
     if (lastRequestTime && (Date.now() - lastRequestTime) < cooldownTime) {
          res.status(429).json({ message: 'Please wait before resending the verification email.' });
@@ -24,18 +24,18 @@ const resendVerification: RequestHandler = async (req, res) => {
     }
 
     try {
-        const user = await db.user.findUnique({ where: { email } });
+        const user = await db.user.findUnique({ where: { primaryEmail } });
         if (!user) {
              res.status(400).json({ message: 'User not found' });
              return
         }
 
         // Regenerate the verification token and send the email
-        const token = await generateMagicVerificationToken(email);
-        await sendMagicLinkEmail(email, token.token);
+        const token = await generateMagicVerificationToken(primaryEmail);
+        await sendMagicLinkEmail(primaryEmail, token.token);
 
         // Update the last request time for the cooldown
-        resendCooldownMap.set(email, Date.now());
+        resendCooldownMap.set(primaryEmail, Date.now());
 
         res.status(200).json({ message: 'Verification email sent again!' });
     } catch (error) {

@@ -22,7 +22,7 @@ import { sendPasswordResetSuccessEmail } from '../../../lib/mail.js';
     // Update the user's password
     const hashedPassword = await bcrypt.hash(password, 10);
     await db.user.update({
-      where: { email: resetToken.email },
+      where: { primaryEmail: resetToken.email },
       data: { password: hashedPassword }
     });
 

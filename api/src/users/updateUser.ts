@@ -13,7 +13,7 @@ export const updateUser = async (req: Request, res: Response) => {
   }
 
 
-  const { firstname, lastname,email, password } = req.body;
+  const { firstname, lastname,primaryEmail, password } = req.body;
 
   try {
     const updatedUser = await db.user.update({
@@ -21,7 +21,7 @@ export const updateUser = async (req: Request, res: Response) => {
       data: {
         firstname,
         lastname,
-        email,
+        primaryEmail,
         ...(password && { password: await bcrypt.hash(password, 10) }) 
       }
     });

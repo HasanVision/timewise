@@ -6,9 +6,9 @@ import { sendMagicLinkEmail } from '../../../lib/mail.js';
 
 
 const register: RequestHandler = async (req, res ) => {
-    const { firstName, lastName, email, password } = req.body;
+    const { firstName, lastName, primaryEmail, password } = req.body;
 
-    if (!firstName || !lastName || !email || !password) {
+    if (!firstName || !lastName || !primaryEmail || !password) {
         console.log('Please enter all fields');
         res.status(400).json({ message: 'Please enter all fields' });
         return;
@@ -16,7 +16,7 @@ const register: RequestHandler = async (req, res ) => {
 
     try {
        
-        const existingUser = await db.user.findUnique({ where: { email } });
+        const existingUser = await db.user.findUnique({ where: { primaryEmail } });
 
         if (existingUser) {
             res.status(400).json({ message: 'User already exists' });
@@ -31,14 +31,14 @@ const register: RequestHandler = async (req, res ) => {
             data: {
                 firstname: firstName,
                 lastname: lastName,
-                email,
+                primaryEmail,
                 password: hashedPassword,
             },
             select: {
                 id: true,
                 firstname: true,
                 lastname: true,
-                email: true,
+                primaryEmail: true,
                 isTwoFactorEnabled: true,
                 image: true,
             },
@@ -46,7 +46,7 @@ const register: RequestHandler = async (req, res ) => {
 
         console.log('User created in the database:', newUser);
 
-        const verificationToken = await generateMagicVerificationToken(email);
+        const verificationToken = await generateMagicVerificationToken(primaryEmail);
         await sendMagicLinkEmail(
             verificationToken.email,
             verificationToken.token

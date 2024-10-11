@@ -5,8 +5,8 @@
       <form [formGroup]="form" (submit)="onSubmit()">
         <app-input-text class="input-field"
           type="email"
-          formControlName="email"
-          [control]="form.get('email')"
+          formControlName="primaryEmail"
+          [control]="form.get('primaryEmail')"
           placeholder="Email"
           id="email">
         </app-input-text>

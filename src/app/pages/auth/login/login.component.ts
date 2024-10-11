@@ -45,7 +45,7 @@ export class LoginComponent {
     this.library.addIcons(faEye, faEyeSlash, faGoogle);
 
     this.form = this.fb.group({
-      email: new FormControl('', [
+      primaryEmail: new FormControl('', [
         Validators.required,
         Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
       ]),
@@ -56,11 +56,11 @@ export class LoginComponent {
   async onSubmit() {
     if (this.form.valid) {
       this.isLoading = true;  
-      const { email, password } = this.form.value;
+      const { primaryEmail, password } = this.form.value;
       try {
         // console.log('Logging in user:', email, password);
         const response = await axios.post('http://localhost:4000/api/login', {
-          email,
+          primaryEmail,
           password,
         });
         this.isSuccessful = true;
@@ -98,9 +98,9 @@ export class LoginComponent {
     window.location.href = 'http://localhost:4000/auth/google'; 
   }
   resendEmail() {
-    const email = this.form.get('email')?.value; 
-    if (email) {
-      axios.post('http://localhost:4000/api/resend-verification', { email })
+    const primaryEmail = this.form.get('primaryEmail')?.value; 
+    if (primaryEmail) {
+      axios.post('http://localhost:4000/api/resend-verification', { primaryEmail })
         .then(response => {
           console.log('Verification email resent successfully', response);
         })
