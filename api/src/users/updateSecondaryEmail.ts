@@ -25,7 +25,8 @@ const updateSecondaryEmail = async (req: Request, res: Response) => {
             where: { 
                 OR: [
                     { primaryEmail: secondaryEmail },
-                    { secondaryEmail: secondaryEmail }
+                    { secondaryEmail: secondaryEmail },
+                    
                 ],
                 AND: {
                     id: { not: userId } // Exclude current user
@@ -41,7 +42,7 @@ const updateSecondaryEmail = async (req: Request, res: Response) => {
         // Update the secondary email
         const updatedUser = await db.user.update({
             where: { id: userId },
-            data: { secondaryEmail }
+            data: { secondaryEmail, secondaryEmailVerified: null }
         });
 
          res.json({ message: 'Secondary email updated successfully', user: updatedUser });

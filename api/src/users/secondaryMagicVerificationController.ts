@@ -43,7 +43,7 @@ const secondaryMagicVerifyToken: RequestHandler = async (req, res) => {
     // await sendWelcomeEmail(user.email, user.firstname);
 
   
-    await db.secondaryEmailMagicLinkToken.delete({ where: { token } });
+    await db.secondaryEmailMagicLinkToken.delete({ where: { id: verificationToken.id} });
 
     console.log('Secondary verified successfully.');
 
