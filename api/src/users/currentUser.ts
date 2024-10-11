@@ -22,6 +22,7 @@ const currentUser: RequestHandler = async (req, res) => {
         secondaryEmail: true,
         firstname: true,  
         lastname: true,   
+        secondaryEmailVerified: true,
       },
     });
 
@@ -37,6 +38,7 @@ const currentUser: RequestHandler = async (req, res) => {
       secondaryEmail: existingUser.secondaryEmail,
       firstname: existingUser.firstname, 
       lastname: existingUser.lastname,   
+      secondaryEmailVerified: existingUser.secondaryEmailVerified,
     });
   } catch (error) {
     console.error('Error fetching current user:', error);

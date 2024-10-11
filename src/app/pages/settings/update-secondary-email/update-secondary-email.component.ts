@@ -42,8 +42,10 @@ export class UpdateSecondaryEmailComponent implements OnInit {
       (user) => {
         console.log("User data", user);
         this.currentUser = user;
+        this.isEmailVerified = !!user.secondaryEmailVerified;
+        
         this.form.patchValue({
-          secondaryEmail: user.secondaryEmail || '', // Set existing secondary email if present
+          secondaryEmail: user.secondaryEmail || '', 
         });
       },
       (error) => {
