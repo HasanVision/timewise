@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { db } from '../../../lib/database.js';  
 import bcrypt from 'bcryptjs';
 import { CustomJwtPayload } from '../../../types/custom.js';
+import { getUserEmail } from '../../../utils/getUserEmail.js';
 
 
 export const updateUser = async (req: Request, res: Response) => {

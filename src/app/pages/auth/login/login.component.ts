@@ -45,7 +45,7 @@ export class LoginComponent {
     this.library.addIcons(faEye, faEyeSlash, faGoogle);
 
     this.form = this.fb.group({
-      primaryEmail: new FormControl('', [
+      email: new FormControl('', [
         Validators.required,
         Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
       ]),
@@ -56,11 +56,11 @@ export class LoginComponent {
   async onSubmit() {
     if (this.form.valid) {
       this.isLoading = true;  
-      const { primaryEmail, password } = this.form.value;
+      const { email, password } = this.form.value;
       try {
         // console.log('Logging in user:', email, password);
         const response = await axios.post('http://localhost:4000/api/login', {
-          primaryEmail,
+          email,
           password,
         });
         this.isSuccessful = true;

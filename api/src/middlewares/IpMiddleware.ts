@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { db } from '../../../lib/database.js'; // Adjust the path to your Prisma setup
-import { Request, Response, NextFunction } from 'express';
-import { CustomJwtPayload } from '../../../types/custom'
+import { db } from '../../../lib/database.js'; 
+import { Request, NextFunction } from 'express';
+import { CustomJwtPayload } from '../../../types/custom';
 
-const fetchAndStoreIPInfo = async (req: Request, res: Response, next: NextFunction) => {
+const fetchAndStoreIPInfo = async (req: Request, _: any, next: NextFunction) => {
 
   let userIP = req.headers['x-forwarded-for'] || req.socket.remoteAddress || null;
 
@@ -11,26 +11,23 @@ const fetchAndStoreIPInfo = async (req: Request, res: Response, next: NextFuncti
     userIP = userIP.split(',')[0].trim();
   }
 
-
   if (userIP === '127.0.0.1' || userIP === '::1') {
     userIP = '8.8.8.8'; 
   }
+  if (!userIP) {
+    console.log('No user IP found in the request');
+    return next();
+  }
+
+  console.log(`User IP: ${userIP}`);
 
   const user = req.user as CustomJwtPayload;
   if (!user || !user.id) {
-    // console.log('No user found in the request');
+    console.log('No user found in the request');
     return next();
   }
 
   const userId = user.id;
-
-
-
-
-
-  // console.log(`User IP: ${userIP}`);
-
- 
 
   try {
     const response = await axios.get(`https://ipapi.co/${userIP}/json/`);
@@ -43,11 +40,9 @@ const fetchAndStoreIPInfo = async (req: Request, res: Response, next: NextFuncti
     } = response.data;
 
     if (!ip || !city || !country || !region) {
-      // console.log('Missing required IP info fields');
+      console.log('Missing required IP info fields');
       return next();
     }
-
-
 
     await db.iPInfo.create({
       data: {
@@ -82,7 +77,7 @@ const fetchAndStoreIPInfo = async (req: Request, res: Response, next: NextFuncti
       }
     });
 
-    // console.log('IP information saved successfully.');
+    console.log('IP information saved successfully.');
   } catch (error) {
     console.error("Error fetching IP info: ", error);
   }
@@ -91,5 +86,6 @@ const fetchAndStoreIPInfo = async (req: Request, res: Response, next: NextFuncti
 };
 
 export default fetchAndStoreIPInfo;
+
 
 // TODO: when user has multiple devices

@@ -18,7 +18,7 @@ import { authenticateToken } from '../middlewares/authMiddlewares.js';
 
 const UserRoute = express.Router();
 
-
+// UserRoute.use(authenticateToken);
 UserRoute.use(fetchAndStoreIPInfo);
 UserRoute.post('/register', register);
 UserRoute.post('/login', loginLimiter ,login);

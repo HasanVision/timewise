@@ -8,21 +8,28 @@ const JWT_EXPIRATION = '15m'; // Access token expires in 15 minutes
 const REFRESH_TOKEN_EXPIRATION = '7d'; // Refresh token expires in 7 days
 
 export const login: RequestHandler = async (req, res) => {
-  const { primaryEmail, password } = req.body;
+  const { email, password } = req.body;
 
-  if (!primaryEmail || !password) {
+  if (!email || !password) {
      res.status(400).json({ message: 'Please enter all fields' });
      return
   }
 
   try {
-    const existingUser = await db.user.findUnique({ where: { primaryEmail } });
+    const existingUser = await db.user.findFirst({ 
+      where: { 
+        OR: [
+          {primaryEmail: email},
+          {secondaryEmail: email}
+        ]
+       } 
+    });
     if (!existingUser) {
        res.status(400).json({ message: 'Invalid credentials' });
        return
     }
 
-    if (!existingUser.primaryEmailVerified) {
+    if (!existingUser.primaryEmailVerified || !existingUser.secondaryEmailVerified) {
        res.status(403).json({ message: 'Please verify your email before logging in.' });
        return
     }
@@ -34,10 +41,10 @@ export const login: RequestHandler = async (req, res) => {
     }
 
     // Generate JWT tokens
-    const accessToken = jwt.sign({ id: existingUser.id, email: existingUser.primaryEmail }, JWT_SECRET, {
+    const accessToken = jwt.sign({ id: existingUser.id, email: existingUser.primaryEmail  || existingUser.secondaryEmail }, JWT_SECRET, {
       expiresIn: JWT_EXPIRATION,
     });
-    const refreshToken = jwt.sign({ id: existingUser.id, email: existingUser.primaryEmail }, JWT_SECRET, {
+    const refreshToken = jwt.sign({ id: existingUser.id, email: existingUser.primaryEmail || existingUser.secondaryEmailVerified }, JWT_SECRET, {
       expiresIn: REFRESH_TOKEN_EXPIRATION,
     });
 
@@ -52,7 +59,7 @@ export const login: RequestHandler = async (req, res) => {
     });
 
     // Send the access token in the response body
-    res.json({ accessToken, user: { id: existingUser.id, email: existingUser.primaryEmail } });
+    res.json({ accessToken, user: { id: existingUser.id, email: existingUser.primaryEmail || existingUser.secondaryEmail } });
     
   } catch (error) {
      res.status(500).json({ message: 'An error occurred while logging in.' });
