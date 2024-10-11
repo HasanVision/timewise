@@ -8,6 +8,7 @@ import { ForgotPasswordComponent } from './pages/auth/forgot-password/forgot-pas
 import { ResetPasswordComponent } from './pages/auth/reset-password/reset-password.component';
 import { MagicLinkComponent } from './magic-link/magic-link.component';
 import { SettingsComponent } from './pages/settings/settings.component';
+import { VerifySecondaryEmailComponent } from './verify-secondary-email/verify-secondary-email.component';
 
 
 export const routes: Routes = [
@@ -20,7 +21,8 @@ export const routes: Routes = [
             {path: 'forgot-password', component: ForgotPasswordComponent},
             {path: 'new-password', component: ResetPasswordComponent},
             {path: 'magic-link', component: MagicLinkComponent },
-            {path: 'settings', component: SettingsComponent, canActivate: [AuthGuard]}
+            {path: 'settings', component: SettingsComponent, canActivate: [AuthGuard]},
+            {path: 'verify-secondary-email', component: VerifySecondaryEmailComponent, canActivate: [AuthGuard]}
         ]
     }
 ];

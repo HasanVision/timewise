@@ -78,6 +78,8 @@ export const sendSecondaryEmailVerification= async (email: string, token: string
     html: `<p>Click <a href="${verificationLink}"> here </a> to verify your secondary email!</p>`,
   });
 }
+
+
 export const sendIPAlertEmail = async (email: string, ipInfo: any) => {
   const emailContent = `
     <p>We detected a login from a new location:</p>

@@ -13,6 +13,7 @@ import fetchAndCompareIP from '../middlewares/ipMiddlewareCompare.js';
 import { updateUser } from './updateUser.js';
 import { authenticateToken } from '../middlewares/authMiddlewares.js';
 import { updateSecondaryEmail} from './updateSecondaryEmail.js';
+import  secondaryMagicVerifyToken  from './secondaryMagicVerificationController.js';
 
 
 
@@ -27,6 +28,7 @@ UserRoute.post('/forgot-password', resetPasswordLimiter, forgotPasswordHandler);
 UserRoute.post('/verify-reset-password-token', verifyResetPasswordToken);
 UserRoute.post('/new-password', resetPasswordLimiter, newPasswordHandler);
 UserRoute.post('/verify-magic-link', verifyMagicLinkHandler);
+UserRoute.post('/verify-secondary-email', secondaryMagicVerifyToken);
 UserRoute.post('/resend-verification', resendVerification);
 UserRoute.put('/update-user', authenticateToken, updateUser);
 UserRoute.put('/update-secondary-email', authenticateToken, updateSecondaryEmail);
