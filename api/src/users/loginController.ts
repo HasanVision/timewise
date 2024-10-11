@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 import { db } from '../../../lib/database.js';
 
 const JWT_SECRET = process.env["JWT_SECRET"]!;
-const JWT_EXPIRATION = '15m'; // Access token expires in 15 minutes
+const JWT_EXPIRATION = '1h'; // Access token expires in 15 minutes
 const REFRESH_TOKEN_EXPIRATION = '7d'; // Refresh token expires in 7 days
 
 export const login: RequestHandler = async (req, res) => {
@@ -29,9 +29,12 @@ export const login: RequestHandler = async (req, res) => {
        return
     }
 
-    if (!existingUser.primaryEmailVerified || !existingUser.secondaryEmailVerified) {
-       res.status(403).json({ message: 'Please verify your email before logging in.' });
-       return
+    if (
+      (email === existingUser.primaryEmail && !existingUser.primaryEmailVerified) ||
+      (email === existingUser.secondaryEmail && !existingUser.secondaryEmailVerified)
+    ) {
+      res.status(403).json({ message: 'Please verify your email before logging in.' });
+      return;
     }
 
     const isPasswordValid = await bcrypt.compare(password, existingUser.password!);

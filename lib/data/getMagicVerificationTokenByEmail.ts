@@ -19,7 +19,19 @@ export const getMagicVerificationTokenByEmail = async (
     email: string
 ) => {
     try {
-        return await db.magicLinkToken.findFirst({
+        return await db.primaryEmailMagicLinkToken.findFirst({
+            where: {email}
+        });
+    } catch {
+        return null;
+    }
+
+}
+export const getSecondaryMagicVerificationTokenByEmail = async (
+    email: string
+) => {
+    try {
+        return await db.primaryEmailMagicLinkToken.findFirst({
             where: {email}
         });
     } catch {

@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE `IPInfo` MODIFY `userId` VARCHAR(191) NULL;

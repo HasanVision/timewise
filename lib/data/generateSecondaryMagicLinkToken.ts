@@ -1,18 +1,18 @@
 import * as crypto from "crypto";
-import { getMagicVerificationTokenByEmail } from "./getMagicVerificationTokenByEmail.js";
+import { getSecondaryMagicVerificationTokenByEmail } from "./getMagicVerificationTokenByEmail.js";
 import { db } from "../database.js";
 
 const token = crypto.randomUUID();
 const expires = new Date(new Date().getTime() + 3600 * 1000); // Token expires in 1 hour
 
-export const generateMagicVerificationToken = async (email: string) => {
+export const generateSecondaryMagicVerificationToken = async (email: string) => {
   try {
  
-    const existingToken = await getMagicVerificationTokenByEmail(email);
+    const existingToken = await getSecondaryMagicVerificationTokenByEmail(email);
 
     if (existingToken) {
       // Delete the existing token
-      await db.primaryEmailMagicLinkToken.delete({
+      await db.secondaryEmailMagicLinkToken.delete({
         where: {
           id: existingToken.id,
         },
@@ -21,10 +21,10 @@ export const generateMagicVerificationToken = async (email: string) => {
     }
 
     // Create and store the new verification token in the database
-    const newToken = await db.primaryEmailMagicLinkToken.create({
+    const newToken = await db.secondaryEmailMagicLinkToken.create({
       data: {
-        email,
-        token,
+        email: email,
+        token: token,
         expires,
       },
     });
@@ -32,8 +32,8 @@ export const generateMagicVerificationToken = async (email: string) => {
     // console.log(`New verification token generated for ${email}: ${token}`);
     return newToken;
   } catch (error) {
-    console.error('Error generating magic verification token:', error);
-    throw new Error('Could not generate magic verification token. Please try again later.');
+    console.error('Error generating secondary magic verification token:', error);
+    throw new Error('Could not generate secondary magic verification token. Please try again later.');
   }
 };
 

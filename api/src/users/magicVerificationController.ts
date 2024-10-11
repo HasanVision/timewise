@@ -14,7 +14,7 @@ const magicVerifyToken: RequestHandler = async (req, res) => {
 
   try {
  
-    const verificationToken = await db.magicLinkToken.findUnique({
+    const verificationToken = await db.primaryEmailMagicLinkToken.findUnique({
       where: { token },
     });
 
@@ -43,7 +43,7 @@ const magicVerifyToken: RequestHandler = async (req, res) => {
     // await sendWelcomeEmail(user.email, user.firstname);
 
   
-    await db.magicLinkToken.delete({ where: { token } });
+    await db.primaryEmailMagicLinkToken.delete({ where: { token } });
 
     console.log('User verified successfully.');
 
