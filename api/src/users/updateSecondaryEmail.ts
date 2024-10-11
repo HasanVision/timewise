@@ -1,6 +1,8 @@
 import { CustomJwtPayload } from '../../../types/custom.js';
 import { Request, Response } from 'express';
 import { db } from '../../../lib/database.js';
+import { generateSecondaryMagicVerificationToken } from '../../../lib/data/generateSecondaryMagicLinkToken.js';
+import { sendSecondaryEmailVerification } from '../../../lib/mail.js';
 
 const updateSecondaryEmail = async (req: Request, res: Response) => {
     const userId = (req.user as CustomJwtPayload).id;
@@ -43,6 +45,9 @@ const updateSecondaryEmail = async (req: Request, res: Response) => {
         });
 
          res.json({ message: 'Secondary email updated successfully', user: updatedUser });
+
+         const verificationToken = await generateSecondaryMagicVerificationToken(secondaryEmail);
+            await sendSecondaryEmailVerification(secondaryEmail, verificationToken.token);
          return
 
     } catch (error) {

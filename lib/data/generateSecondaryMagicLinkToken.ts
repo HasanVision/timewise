@@ -12,7 +12,7 @@ export const generateSecondaryMagicVerificationToken = async (email: string) => 
 
     if (existingToken) {
       // Delete the existing token
-      await db.secondaryEmailMagicLinkToken.delete({
+      await db.secondaryEmailMagicLinkToken.deleteMany({
         where: {
           id: existingToken.id,
         },
