@@ -1,7 +1,15 @@
 import { Request, Response, NextFunction, RequestHandler } from 'express';
 import jwt, { JwtPayload, VerifyErrors } from 'jsonwebtoken';
 
-const JWT_SECRET = process.env["JWT_SECRET"]!;
+const JWT_SECRET = process.env["JWT_SECRET"];
+
+
+if (!JWT_SECRET) {
+  console.error("JWT_SECRET is not defined");
+  process.exit(1);
+}
+
+
 
 const authenticateToken: RequestHandler = (req: Request, res: Response, next: NextFunction): void => {
   const token = req.cookies?.accessToken || (req.headers['authorization']?.split(' ')[1]);
