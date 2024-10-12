@@ -89,7 +89,6 @@ const fetchAndStoreIPInfo = async (req: Request, _: any, next: NextFunction) => 
   } catch (error) {
     console.error('Error fetching IP info:', error);
   }
-
   next(); // Continue to the next middleware or route handler
 };
 
