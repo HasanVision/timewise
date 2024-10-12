@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { ButtonComponent } from '../../../shared/ui/button/button.component';
 import { InputTextComponent } from '../../../shared/ui/input-text/input-text.component';
 import { LabelComponent } from '../../../shared/ui/label/label.component';
-import { AuthService } from '../../../services/auth.service'; // Assuming you have an AuthService
+import { AuthService } from '../../../services/auth.service'; 
 import axios from 'axios';
 import { CommonModule } from '@angular/common';
 
@@ -72,6 +72,7 @@ export class UpdateSecondaryEmailComponent implements OnInit {
 
         this.successMessage = 'Secondary email updated successfully!';
         this.errorMessage = '';
+        this.isEmailVerified = false;
       } catch (error) {
         this.errorMessage = 'An error occurred while updating the secondary email.';
         this.successMessage = '';
@@ -81,3 +82,4 @@ export class UpdateSecondaryEmailComponent implements OnInit {
     }
   }
 }
+

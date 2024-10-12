@@ -35,8 +35,8 @@ app.use((req, res, next) => {
     res.json({ message: 'Received', body: req.body });
   });
 
-  console.log('Request Method:', req.method);
-  console.log('Request Headers:', req.headers);
+  // console.log('Request Method:', req.method);
+  // console.log('Request Headers:', req.headers);
   console.log('Request Body:', req.body);
   next();
 });

@@ -11,12 +11,25 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TooltipComponent } from '../../shared/ui/tooltip/tooltip.component';
 import { UpdateSecondaryEmailComponent } from './update-secondary-email/update-secondary-email.component';
+import { UpdatePasswordComponent } from './update-password/update-password.component';
+import { ForgotPasswordComponent } from "../auth/forgot-password/forgot-password.component";
 
 
 @Component({
   selector: 'app-settings',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ButtonComponent, CardComponent, InputTextComponent, LabelComponent, TooltipComponent, UpdateSecondaryEmailComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    ButtonComponent,
+    CardComponent,
+    InputTextComponent,
+    LabelComponent,
+    TooltipComponent,
+    UpdateSecondaryEmailComponent,
+    UpdatePasswordComponent,
+    ForgotPasswordComponent
+],
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.css']
 })

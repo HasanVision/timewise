@@ -3,7 +3,7 @@ import { login } from './loginController.js';
 import { currentUser } from './currentUser.js';
 import forgotPasswordHandler from './forgotPasswordController.js';
 import { loginLimiter, resetPasswordLimiter } from '../middlewares/rateLimiter.js';
-import fetchAndStoreIPInfo  from '../middlewares/IpMiddleware.js';
+// import fetchAndStoreIPInfo  from '../middlewares/IpMiddleware.js';
 import express from 'express';
 import verifyResetPasswordToken from './forgotPasswordVerificationController.js';
 import newPasswordHandler from './newPasswordHandler.js';
@@ -14,16 +14,18 @@ import { updateUser } from './updateUser.js';
 import { authenticateToken } from '../middlewares/authMiddlewares.js';
 import { updateSecondaryEmail} from './updateSecondaryEmail.js';
 import  secondaryMagicVerifyToken  from './secondaryMagicVerificationController.js';
+import { updatePassword } from './updatePassword.js';
 
 
 
 
 const UserRoute = express.Router();
 
-UserRoute.use(fetchAndStoreIPInfo);
+// UserRoute.use(fetchAndStoreIPInfo);
 UserRoute.post('/register', register);
 UserRoute.post('/login', loginLimiter ,login);
 UserRoute.get('/current-user',authenticateToken, currentUser);
+UserRoute.put('/update-password', authenticateToken, updatePassword);
 UserRoute.post('/forgot-password', resetPasswordLimiter, forgotPasswordHandler);
 UserRoute.post('/verify-reset-password-token', verifyResetPasswordToken);
 UserRoute.post('/new-password', resetPasswordLimiter, newPasswordHandler);
